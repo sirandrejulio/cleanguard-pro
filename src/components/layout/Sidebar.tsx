@@ -21,6 +21,7 @@ interface SidebarProps {
   onNavigate?: () => void;
 }
 
+// Sidebar STRATA — fundo escuro com bordas industriais e acento esmeralda
 export function Sidebar({ onNavigate }: SidebarProps) {
   const { t } = useTranslation();
   const location = useLocation();
@@ -75,19 +76,19 @@ export function Sidebar({ onNavigate }: SidebarProps) {
   return (
     <aside
       className={cn(
-        "h-full bg-card border-r-2 border-border flex flex-col transition-all duration-200 shrink-0",
+        "h-full bg-card border-r border-border flex flex-col transition-all duration-200 shrink-0",
         collapsed ? "w-16" : "w-64"
       )}
     >
-      {/* Logo */}
-      <div className="h-14 flex items-center px-4 border-b-2 border-border shrink-0">
+      {/* Logo — idêntico à Navbar da landing */}
+      <div className="h-14 flex items-center px-4 border-b border-border shrink-0">
         <Link to="/dashboard" className="flex items-center gap-2" onClick={handleNav}>
           <div className="w-8 h-8 bg-primary flex items-center justify-center shrink-0">
             <Shield className="w-5 h-5 text-primary-foreground" />
           </div>
           {!collapsed && (
-            <span className="font-display font-black text-lg">
-              CleanGuard <span className="text-primary">Pro</span>
+            <span className="font-display font-black text-lg text-foreground">
+              Clean<span className="text-primary">Guard</span> Pro
             </span>
           )}
         </Link>
@@ -115,7 +116,7 @@ export function Sidebar({ onNavigate }: SidebarProps) {
                   <item.icon className="w-5 h-5 shrink-0" />
                   {!collapsed && (
                     <>
-                      <span className="flex-1 text-left uppercase tracking-wider text-xs">
+                      <span className="flex-1 text-left font-mono text-[11px] uppercase tracking-[0.15em]">
                         {item.label}
                       </span>
                       {isOpen ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
@@ -123,7 +124,7 @@ export function Sidebar({ onNavigate }: SidebarProps) {
                   )}
                 </button>
                 {isOpen && (
-                  <div className="ml-4 pl-4 border-l-2 border-border space-y-0.5">
+                  <div className="ml-4 pl-4 border-l border-border space-y-0.5">
                     {item.children.map((child) => (
                       <Link
                         key={child.href}
@@ -166,7 +167,7 @@ export function Sidebar({ onNavigate }: SidebarProps) {
       </nav>
 
       {/* Footer */}
-      <div className="border-t-2 border-border p-2 space-y-1 shrink-0">
+      <div className="border-t border-border p-2 space-y-1 shrink-0">
         <button
           onClick={() => signOut()}
           className="w-full flex items-center gap-3 px-3 py-2 text-sm text-muted-foreground hover:text-destructive hover:bg-destructive/5 transition-colors"
