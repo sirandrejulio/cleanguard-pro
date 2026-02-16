@@ -18,6 +18,7 @@ import TeamsPage from "./pages/TeamsPage";
 import EvidencePage from "./pages/EvidencePage";
 import DisputesPage from "./pages/DisputesPage";
 import TimesheetsPage from "./pages/TimesheetsPage";
+import SettingsPage from "./pages/SettingsPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -64,7 +65,7 @@ const App = () => (
               <Route path="fill/marketplace" element={<Dashboard />} />
               <Route path="fill/pricing" element={<Dashboard />} />
               <Route path="analytics" element={<Dashboard />} />
-              <Route path="settings" element={<Dashboard />} />
+              <Route path="settings" element={<SettingsPage />} />
             </Route>
 
             {/* Catch-all */}
