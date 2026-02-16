@@ -556,6 +556,71 @@ const en = {
     },
   },
 
+  // Route Module
+  routeModule: {
+    optimizer: {
+      title: "Route Optimizer",
+      subtitle: "AI-powered route planning for maximum efficiency",
+      optimize: "Optimize Routes",
+      allTeams: "All Teams",
+      routeStops: "Route Stops",
+      noStops: "No jobs scheduled for optimization",
+      stats: {
+        totalJobs: "Total Jobs",
+        estimatedTime: "Est. Time",
+        stops: "Stops",
+      },
+    },
+    daily: {
+      title: "Daily Routes",
+      subtitle: "View and manage today's job schedule",
+      today: "Today",
+      totalJobs: "Total Jobs",
+      completed: "Completed",
+      inProgress: "In Progress",
+      totalTime: "Total Time",
+      timeline: "Timeline",
+      noJobs: "No jobs scheduled for this day",
+    },
+  },
+
+  // Fill Module
+  fillModule: {
+    waitlist: {
+      title: "Waitlist",
+      subtitle: "Manage customers waiting for available slots",
+      totalOnList: "On Waitlist",
+      activeCustomers: "Active",
+      avgWait: "Avg Wait",
+      search: "Search waitlist...",
+      customerList: "Waitlist Customers",
+      empty: "No customers on the waitlist",
+      notify: "Notify",
+    },
+    marketplace: {
+      title: "Marketplace",
+      subtitle: "Open slots available for booking",
+      openSlots: "Open Slots",
+      potentialRevenue: "Potential Revenue",
+      thisWeek: "This Week",
+      empty: "No open slots available",
+    },
+    pricing: {
+      title: "Pricing Engine",
+      subtitle: "Analyze and optimize your pricing strategy",
+      totalQuoted: "Total Quoted",
+      totalRevenue: "Total Revenue",
+      avgPrice: "Avg Price",
+      margin: "Margin",
+      byService: "Price by Service Type",
+      breakdown: "Service Breakdown",
+      service: "Service",
+      jobCount: "Jobs",
+      avgQuoted: "Avg Quoted",
+      avgFinal: "Avg Final",
+    },
+  },
+
   // Common
   common: {
     cancel: "Cancel",

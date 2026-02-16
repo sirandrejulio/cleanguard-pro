@@ -20,6 +20,11 @@ import DisputesPage from "./pages/DisputesPage";
 import TimesheetsPage from "./pages/TimesheetsPage";
 import SettingsPage from "./pages/SettingsPage";
 import AnalyticsPage from "./pages/AnalyticsPage";
+import RouteOptimizerPage from "./pages/RouteOptimizerPage";
+import DailyRoutesPage from "./pages/DailyRoutesPage";
+import WaitlistPage from "./pages/WaitlistPage";
+import MarketplacePage from "./pages/MarketplacePage";
+import PricingEnginePage from "./pages/PricingEnginePage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -60,11 +65,11 @@ const App = () => (
               <Route path="shield/evidence" element={<EvidencePage />} />
               <Route path="shield/disputes" element={<DisputesPage />} />
               <Route path="shield/timesheets" element={<TimesheetsPage />} />
-              <Route path="route/optimizer" element={<Dashboard />} />
-              <Route path="route/daily" element={<Dashboard />} />
-              <Route path="fill/waitlist" element={<Dashboard />} />
-              <Route path="fill/marketplace" element={<Dashboard />} />
-              <Route path="fill/pricing" element={<Dashboard />} />
+              <Route path="route/optimizer" element={<RouteOptimizerPage />} />
+              <Route path="route/daily" element={<DailyRoutesPage />} />
+              <Route path="fill/waitlist" element={<WaitlistPage />} />
+              <Route path="fill/marketplace" element={<MarketplacePage />} />
+              <Route path="fill/pricing" element={<PricingEnginePage />} />
               <Route path="analytics" element={<AnalyticsPage />} />
               <Route path="settings" element={<SettingsPage />} />
             </Route>
