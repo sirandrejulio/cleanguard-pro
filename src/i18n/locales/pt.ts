@@ -556,6 +556,71 @@ const pt = {
     },
   },
 
+  // Route Module
+  routeModule: {
+    optimizer: {
+      title: "Otimizador de Rotas",
+      subtitle: "Planejamento de rotas com IA para máxima eficiência",
+      optimize: "Otimizar Rotas",
+      allTeams: "Todas as Equipes",
+      routeStops: "Paradas da Rota",
+      noStops: "Nenhum job agendado para otimização",
+      stats: {
+        totalJobs: "Total de Jobs",
+        estimatedTime: "Tempo Est.",
+        stops: "Paradas",
+      },
+    },
+    daily: {
+      title: "Rotas do Dia",
+      subtitle: "Visualize e gerencie a agenda de hoje",
+      today: "Hoje",
+      totalJobs: "Total de Jobs",
+      completed: "Concluídos",
+      inProgress: "Em Andamento",
+      totalTime: "Tempo Total",
+      timeline: "Linha do Tempo",
+      noJobs: "Nenhum job agendado para este dia",
+    },
+  },
+
+  // Fill Module
+  fillModule: {
+    waitlist: {
+      title: "Lista de Espera",
+      subtitle: "Gerencie clientes aguardando vagas disponíveis",
+      totalOnList: "Na Lista",
+      activeCustomers: "Ativos",
+      avgWait: "Espera Média",
+      search: "Buscar na lista...",
+      customerList: "Clientes na Espera",
+      empty: "Nenhum cliente na lista de espera",
+      notify: "Notificar",
+    },
+    marketplace: {
+      title: "Marketplace",
+      subtitle: "Vagas abertas disponíveis para agendamento",
+      openSlots: "Vagas Abertas",
+      potentialRevenue: "Receita Potencial",
+      thisWeek: "Esta Semana",
+      empty: "Nenhuma vaga disponível",
+    },
+    pricing: {
+      title: "Motor de Preços",
+      subtitle: "Analise e otimize sua estratégia de preços",
+      totalQuoted: "Total Cotado",
+      totalRevenue: "Receita Total",
+      avgPrice: "Preço Médio",
+      margin: "Margem",
+      byService: "Preço por Tipo de Serviço",
+      breakdown: "Detalhamento por Serviço",
+      service: "Serviço",
+      jobCount: "Jobs",
+      avgQuoted: "Média Cotada",
+      avgFinal: "Média Final",
+    },
+  },
+
   // Common
   common: {
     cancel: "Cancelar",

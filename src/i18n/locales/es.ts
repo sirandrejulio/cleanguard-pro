@@ -556,6 +556,71 @@ const es = {
     },
   },
 
+  // Route Module
+  routeModule: {
+    optimizer: {
+      title: "Optimizador de Rutas",
+      subtitle: "Planificación de rutas con IA para máxima eficiencia",
+      optimize: "Optimizar Rutas",
+      allTeams: "Todos los Equipos",
+      routeStops: "Paradas de la Ruta",
+      noStops: "Sin trabajos programados para optimización",
+      stats: {
+        totalJobs: "Total de Trabajos",
+        estimatedTime: "Tiempo Est.",
+        stops: "Paradas",
+      },
+    },
+    daily: {
+      title: "Rutas del Día",
+      subtitle: "Visualiza y administra la agenda de hoy",
+      today: "Hoy",
+      totalJobs: "Total de Trabajos",
+      completed: "Completados",
+      inProgress: "En Progreso",
+      totalTime: "Tiempo Total",
+      timeline: "Línea de Tiempo",
+      noJobs: "Sin trabajos programados para este día",
+    },
+  },
+
+  // Fill Module
+  fillModule: {
+    waitlist: {
+      title: "Lista de Espera",
+      subtitle: "Administra clientes esperando espacios disponibles",
+      totalOnList: "En Lista",
+      activeCustomers: "Activos",
+      avgWait: "Espera Promedio",
+      search: "Buscar en la lista...",
+      customerList: "Clientes en Espera",
+      empty: "Sin clientes en la lista de espera",
+      notify: "Notificar",
+    },
+    marketplace: {
+      title: "Marketplace",
+      subtitle: "Espacios abiertos disponibles para reservar",
+      openSlots: "Espacios Abiertos",
+      potentialRevenue: "Ingreso Potencial",
+      thisWeek: "Esta Semana",
+      empty: "Sin espacios disponibles",
+    },
+    pricing: {
+      title: "Motor de Precios",
+      subtitle: "Analiza y optimiza tu estrategia de precios",
+      totalQuoted: "Total Cotizado",
+      totalRevenue: "Ingresos Totales",
+      avgPrice: "Precio Promedio",
+      margin: "Margen",
+      byService: "Precio por Tipo de Servicio",
+      breakdown: "Desglose por Servicio",
+      service: "Servicio",
+      jobCount: "Trabajos",
+      avgQuoted: "Promedio Cotizado",
+      avgFinal: "Promedio Final",
+    },
+  },
+
   // Common
   common: {
     cancel: "Cancelar",
