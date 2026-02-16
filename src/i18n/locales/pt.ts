@@ -531,6 +531,31 @@ const pt = {
     },
   },
 
+  // Analytics
+  analytics: {
+    title: "Análises",
+    subtitle: "Insights de desempenho de toda a sua operação",
+    noData: "Nenhum dado disponível ainda",
+    kpis: {
+      totalRevenue: "Receita Total",
+      totalJobs: "Total de Jobs",
+      activeCustomers: "Clientes Ativos",
+      hoursWorked: "Horas Trabalhadas",
+      shieldScore: "Score Shield",
+      disputes: "Disputas Ganhas",
+    },
+    charts: {
+      monthlyRevenue: "Receita Mensal",
+      revenue: "Receita",
+      jobsByStatus: "Jobs por Status",
+      jobsPerTeam: "Jobs por Equipe",
+      shieldProtection: "Proteção Shield",
+      disputeWinRate: "Taxa de Vitória em Disputas",
+      resolved: "resolvidas",
+      total: "total",
+    },
+  },
+
   // Common
   common: {
     cancel: "Cancelar",
