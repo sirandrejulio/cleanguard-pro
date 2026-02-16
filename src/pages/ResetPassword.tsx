@@ -2,13 +2,11 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useNavigate } from "react-router-dom";
 import { Eye, EyeOff, ArrowRight, Check } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { AuthLayout } from "@/components/auth/AuthLayout";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
 
+// Página de redefinição de senha — design STRATA escuro
 const ResetPassword = () => {
   const { t } = useTranslation();
   const { updatePassword } = useAuth();
@@ -47,17 +45,21 @@ const ResetPassword = () => {
     setLoading(false);
   };
 
+  const inputClass = "w-full h-12 bg-white/5 border border-white/10 text-white text-base px-4 placeholder:text-zinc-600 focus:outline-none focus:border-brand-emerald transition-colors";
+
   if (success) {
     return (
       <AuthLayout>
         <div className="text-center space-y-6">
-          <div className="w-16 h-16 bg-success/10 border-2 border-success mx-auto flex items-center justify-center">
-            <Check className="w-8 h-8 text-success" />
+          <div className="w-16 h-16 border border-brand-emerald/30 bg-brand-emerald/10 mx-auto flex items-center justify-center">
+            <Check className="w-8 h-8 text-brand-emerald" />
           </div>
-          <h2 className="font-display text-2xl font-black">{t("auth.resetPassword.success.title")}</h2>
-          <p className="text-muted-foreground">{t("auth.resetPassword.success.message")}</p>
+          <h2 className="font-display text-2xl font-black text-white">{t("auth.resetPassword.success.title")}</h2>
+          <p className="text-zinc-400">{t("auth.resetPassword.success.message")}</p>
           <Link to="/login">
-            <Button className="font-bold">{t("auth.login.submit")}</Button>
+            <button className="bg-brand-emerald text-black font-bold text-sm tracking-wider uppercase px-8 py-3 hover:shadow-[0_0_30px_rgba(16,185,129,0.4)] transition-all duration-300">
+              {t("auth.login.submit")}
+            </button>
           </Link>
         </div>
       </AuthLayout>
@@ -68,29 +70,29 @@ const ResetPassword = () => {
     <AuthLayout>
       <div className="space-y-8">
         <div className="text-center">
-          <h1 className="font-display text-3xl font-black">{t("auth.resetPassword.title")}</h1>
-          <p className="text-muted-foreground mt-2">{t("auth.resetPassword.subtitle")}</p>
+          <h1 className="font-display text-3xl font-black text-white">{t("auth.resetPassword.title")}</h1>
+          <p className="text-zinc-400 mt-2">{t("auth.resetPassword.subtitle")}</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <div className="space-y-2">
-            <Label htmlFor="password" className="font-semibold text-sm uppercase tracking-wider">
+            <label htmlFor="password" className="font-mono text-[11px] tracking-[0.2em] text-zinc-500 uppercase">
               {t("auth.resetPassword.password")}
-            </Label>
+            </label>
             <div className="relative">
-              <Input
+              <input
                 id="password"
                 type={showPassword ? "text" : "password"}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
                 minLength={8}
-                className="h-12 border-2 text-base pr-12"
+                className={`${inputClass} pr-12`}
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-white transition-colors"
               >
                 {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
               </button>
@@ -98,24 +100,28 @@ const ResetPassword = () => {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="confirmPassword" className="font-semibold text-sm uppercase tracking-wider">
+            <label htmlFor="confirmPassword" className="font-mono text-[11px] tracking-[0.2em] text-zinc-500 uppercase">
               {t("auth.resetPassword.confirmPassword")}
-            </Label>
-            <Input
+            </label>
+            <input
               id="confirmPassword"
               type={showPassword ? "text" : "password"}
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               required
               minLength={8}
-              className="h-12 border-2 text-base"
+              className={inputClass}
             />
           </div>
 
-          <Button type="submit" className="w-full h-12 text-base font-bold group" disabled={loading}>
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full h-12 bg-brand-emerald text-black font-bold text-sm tracking-wider uppercase hover:shadow-[0_0_30px_rgba(16,185,129,0.4)] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed group flex items-center justify-center"
+          >
             {loading ? t("auth.resetPassword.submitting") : t("auth.resetPassword.submit")}
             {!loading && <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />}
-          </Button>
+          </button>
         </form>
       </div>
     </AuthLayout>
