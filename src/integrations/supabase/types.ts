@@ -127,6 +127,142 @@ export type Database = {
           },
         ]
       }
+      disputes: {
+        Row: {
+          company_id: string
+          created_at: string
+          customer_id: string
+          description: string | null
+          id: string
+          job_id: string
+          opened_by: string
+          priority: string
+          resolution: string | null
+          resolved_at: string | null
+          resolved_by: string | null
+          status: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          company_id: string
+          created_at?: string
+          customer_id: string
+          description?: string | null
+          id?: string
+          job_id: string
+          opened_by: string
+          priority?: string
+          resolution?: string | null
+          resolved_at?: string | null
+          resolved_by?: string | null
+          status?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          company_id?: string
+          created_at?: string
+          customer_id?: string
+          description?: string | null
+          id?: string
+          job_id?: string
+          opened_by?: string
+          priority?: string
+          resolution?: string | null
+          resolved_at?: string | null
+          resolved_by?: string | null
+          status?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fk_disputes_company"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fk_disputes_customer"
+            columns: ["customer_id"]
+            isOneToOne: false
+            referencedRelation: "customers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fk_disputes_job"
+            columns: ["job_id"]
+            isOneToOne: false
+            referencedRelation: "jobs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      evidence_uploads: {
+        Row: {
+          caption: string | null
+          company_id: string
+          created_at: string
+          file_type: string
+          file_url: string
+          id: string
+          job_id: string
+          latitude: number | null
+          longitude: number | null
+          taken_at: string | null
+          thumbnail_url: string | null
+          updated_at: string
+          uploaded_by: string
+        }
+        Insert: {
+          caption?: string | null
+          company_id: string
+          created_at?: string
+          file_type?: string
+          file_url: string
+          id?: string
+          job_id: string
+          latitude?: number | null
+          longitude?: number | null
+          taken_at?: string | null
+          thumbnail_url?: string | null
+          updated_at?: string
+          uploaded_by: string
+        }
+        Update: {
+          caption?: string | null
+          company_id?: string
+          created_at?: string
+          file_type?: string
+          file_url?: string
+          id?: string
+          job_id?: string
+          latitude?: number | null
+          longitude?: number | null
+          taken_at?: string | null
+          thumbnail_url?: string | null
+          updated_at?: string
+          uploaded_by?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fk_evidence_company"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fk_evidence_job"
+            columns: ["job_id"]
+            isOneToOne: false
+            referencedRelation: "jobs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       jobs: {
         Row: {
           actual_end: string | null
@@ -343,6 +479,75 @@ export type Database = {
             columns: ["company_id"]
             isOneToOne: false
             referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      timesheets: {
+        Row: {
+          check_in: string | null
+          check_in_lat: number | null
+          check_in_lng: number | null
+          check_out: string | null
+          check_out_lat: number | null
+          check_out_lng: number | null
+          company_id: string
+          created_at: string
+          id: string
+          job_id: string
+          notes: string | null
+          status: string
+          total_minutes: number | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          check_in?: string | null
+          check_in_lat?: number | null
+          check_in_lng?: number | null
+          check_out?: string | null
+          check_out_lat?: number | null
+          check_out_lng?: number | null
+          company_id: string
+          created_at?: string
+          id?: string
+          job_id: string
+          notes?: string | null
+          status?: string
+          total_minutes?: number | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          check_in?: string | null
+          check_in_lat?: number | null
+          check_in_lng?: number | null
+          check_out?: string | null
+          check_out_lat?: number | null
+          check_out_lng?: number | null
+          company_id?: string
+          created_at?: string
+          id?: string
+          job_id?: string
+          notes?: string | null
+          status?: string
+          total_minutes?: number | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fk_timesheets_company"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fk_timesheets_job"
+            columns: ["job_id"]
+            isOneToOne: false
+            referencedRelation: "jobs"
             referencedColumns: ["id"]
           },
         ]
