@@ -12,6 +12,9 @@ import Signup from "./pages/Signup";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import Dashboard from "./pages/Dashboard";
+import JobsPage from "./pages/JobsPage";
+import CustomersPage from "./pages/CustomersPage";
+import TeamsPage from "./pages/TeamsPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -43,12 +46,12 @@ const App = () => (
               }
             >
               <Route index element={<Dashboard />} />
-              {/* Placeholder routes for future pages */}
-              <Route path="jobs" element={<Dashboard />} />
-              <Route path="jobs/new" element={<Dashboard />} />
-              <Route path="customers" element={<Dashboard />} />
-              <Route path="customers/new" element={<Dashboard />} />
-              <Route path="teams" element={<Dashboard />} />
+              <Route path="jobs" element={<JobsPage />} />
+              <Route path="jobs/new" element={<JobsPage />} />
+              <Route path="customers" element={<CustomersPage />} />
+              <Route path="customers/new" element={<CustomersPage />} />
+              <Route path="teams" element={<TeamsPage />} />
+              {/* Placeholder routes for future module pages */}
               <Route path="shield/evidence" element={<Dashboard />} />
               <Route path="shield/disputes" element={<Dashboard />} />
               <Route path="shield/timesheets" element={<Dashboard />} />
