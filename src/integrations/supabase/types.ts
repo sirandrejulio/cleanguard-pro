@@ -198,6 +198,27 @@ export type Database = {
             referencedRelation: "jobs"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "fk_disputes_job"
+            columns: ["job_id"]
+            isOneToOne: false
+            referencedRelation: "v_jobs_dashboard"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fk_disputes_opener"
+            columns: ["opened_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
+          {
+            foreignKeyName: "fk_disputes_resolver"
+            columns: ["resolved_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
         ]
       }
       evidence_uploads: {
@@ -260,6 +281,20 @@ export type Database = {
             isOneToOne: false
             referencedRelation: "jobs"
             referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fk_evidence_job"
+            columns: ["job_id"]
+            isOneToOne: false
+            referencedRelation: "v_jobs_dashboard"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fk_evidence_uploader"
+            columns: ["uploaded_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
           },
         ]
       }
@@ -337,6 +372,13 @@ export type Database = {
           updated_at?: string
         }
         Relationships: [
+          {
+            foreignKeyName: "fk_jobs_assigned_profile"
+            columns: ["assigned_to"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
           {
             foreignKeyName: "fk_jobs_company"
             columns: ["company_id"]
@@ -550,6 +592,20 @@ export type Database = {
             referencedRelation: "jobs"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "fk_timesheets_job"
+            columns: ["job_id"]
+            isOneToOne: false
+            referencedRelation: "v_jobs_dashboard"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fk_timesheets_user"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["user_id"]
+          },
         ]
       }
       user_roles: {
@@ -575,7 +631,29 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      v_jobs_dashboard: {
+        Row: {
+          assigned_name: string | null
+          company_id: string | null
+          customer_name: string | null
+          id: string | null
+          job_number: string | null
+          property_address: string | null
+          quoted_price: number | null
+          scheduled_date: string | null
+          status: string | null
+          team_name: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fk_jobs_company"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Functions: {
       get_user_company_id: { Args: never; Returns: string }
@@ -590,6 +668,20 @@ export type Database = {
     }
     Enums: {
       app_role: "admin" | "manager" | "team_lead" | "cleaner"
+      job_service_type:
+        | "standard_clean"
+        | "deep_clean"
+        | "move_in_out"
+        | "post_construction"
+        | "office"
+        | "window_cleaning"
+        | "carpet_cleaning"
+      job_status:
+        | "scheduled"
+        | "in_progress"
+        | "completed"
+        | "cancelled"
+        | "archived"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -718,6 +810,22 @@ export const Constants = {
   public: {
     Enums: {
       app_role: ["admin", "manager", "team_lead", "cleaner"],
+      job_service_type: [
+        "standard_clean",
+        "deep_clean",
+        "move_in_out",
+        "post_construction",
+        "office",
+        "window_cleaning",
+        "carpet_cleaning",
+      ],
+      job_status: [
+        "scheduled",
+        "in_progress",
+        "completed",
+        "cancelled",
+        "archived",
+      ],
     },
   },
 } as const
