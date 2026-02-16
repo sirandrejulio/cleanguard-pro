@@ -14,6 +14,47 @@ export type Database = {
   }
   public: {
     Tables: {
+      analytics_events: {
+        Row: {
+          company_id: string | null
+          created_at: string
+          event_category: string
+          event_data: Json | null
+          event_name: string
+          id: string
+          page_url: string | null
+          user_id: string | null
+        }
+        Insert: {
+          company_id?: string | null
+          created_at?: string
+          event_category: string
+          event_data?: Json | null
+          event_name: string
+          id?: string
+          page_url?: string | null
+          user_id?: string | null
+        }
+        Update: {
+          company_id?: string | null
+          created_at?: string
+          event_category?: string
+          event_data?: Json | null
+          event_name?: string
+          id?: string
+          page_url?: string | null
+          user_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "analytics_events_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       companies: {
         Row: {
           business_address: string | null
@@ -298,6 +339,76 @@ export type Database = {
           },
         ]
       }
+      gps_verifications: {
+        Row: {
+          accuracy_meters: number | null
+          company_id: string
+          created_at: string
+          device_info: Json | null
+          distance_to_job_meters: number | null
+          id: string
+          is_valid: boolean | null
+          job_id: string
+          latitude: number
+          longitude: number
+          user_id: string
+          validation_flags: string[] | null
+          verification_type: string
+        }
+        Insert: {
+          accuracy_meters?: number | null
+          company_id: string
+          created_at?: string
+          device_info?: Json | null
+          distance_to_job_meters?: number | null
+          id?: string
+          is_valid?: boolean | null
+          job_id: string
+          latitude: number
+          longitude: number
+          user_id: string
+          validation_flags?: string[] | null
+          verification_type?: string
+        }
+        Update: {
+          accuracy_meters?: number | null
+          company_id?: string
+          created_at?: string
+          device_info?: Json | null
+          distance_to_job_meters?: number | null
+          id?: string
+          is_valid?: boolean | null
+          job_id?: string
+          latitude?: number
+          longitude?: number
+          user_id?: string
+          validation_flags?: string[] | null
+          verification_type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "gps_verifications_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "gps_verifications_job_id_fkey"
+            columns: ["job_id"]
+            isOneToOne: false
+            referencedRelation: "jobs"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "gps_verifications_job_id_fkey"
+            columns: ["job_id"]
+            isOneToOne: false
+            referencedRelation: "v_jobs_dashboard"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       jobs: {
         Row: {
           actual_end: string | null
@@ -402,6 +513,91 @@ export type Database = {
           },
         ]
       }
+      marketplace_listings: {
+        Row: {
+          base_price_cents: number
+          company_id: string
+          created_at: string
+          current_price_cents: number
+          description: string | null
+          dynamic_pricing_enabled: boolean | null
+          end_time: string | null
+          expires_at: string | null
+          filled_at: string | null
+          filled_by: string | null
+          id: string
+          job_id: string
+          listing_date: string
+          start_time: string | null
+          status: string
+          title: string
+          updated_at: string
+          views_count: number | null
+        }
+        Insert: {
+          base_price_cents?: number
+          company_id: string
+          created_at?: string
+          current_price_cents?: number
+          description?: string | null
+          dynamic_pricing_enabled?: boolean | null
+          end_time?: string | null
+          expires_at?: string | null
+          filled_at?: string | null
+          filled_by?: string | null
+          id?: string
+          job_id: string
+          listing_date: string
+          start_time?: string | null
+          status?: string
+          title: string
+          updated_at?: string
+          views_count?: number | null
+        }
+        Update: {
+          base_price_cents?: number
+          company_id?: string
+          created_at?: string
+          current_price_cents?: number
+          description?: string | null
+          dynamic_pricing_enabled?: boolean | null
+          end_time?: string | null
+          expires_at?: string | null
+          filled_at?: string | null
+          filled_by?: string | null
+          id?: string
+          job_id?: string
+          listing_date?: string
+          start_time?: string | null
+          status?: string
+          title?: string
+          updated_at?: string
+          views_count?: number | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "marketplace_listings_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "marketplace_listings_job_id_fkey"
+            columns: ["job_id"]
+            isOneToOne: false
+            referencedRelation: "jobs"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "marketplace_listings_job_id_fkey"
+            columns: ["job_id"]
+            isOneToOne: false
+            referencedRelation: "v_jobs_dashboard"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -448,6 +644,84 @@ export type Database = {
             columns: ["company_id"]
             isOneToOne: false
             referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      routes: {
+        Row: {
+          actual_distance_miles: number | null
+          actual_duration_minutes: number | null
+          actual_fuel_cost_cents: number | null
+          company_id: string
+          created_at: string
+          estimated_distance_miles: number | null
+          estimated_duration_minutes: number | null
+          estimated_fuel_cost_cents: number | null
+          id: string
+          is_optimized: boolean | null
+          job_ids: string[]
+          job_order: number[] | null
+          name: string
+          optimization_algorithm: string | null
+          route_date: string
+          status: string
+          team_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          actual_distance_miles?: number | null
+          actual_duration_minutes?: number | null
+          actual_fuel_cost_cents?: number | null
+          company_id: string
+          created_at?: string
+          estimated_distance_miles?: number | null
+          estimated_duration_minutes?: number | null
+          estimated_fuel_cost_cents?: number | null
+          id?: string
+          is_optimized?: boolean | null
+          job_ids?: string[]
+          job_order?: number[] | null
+          name: string
+          optimization_algorithm?: string | null
+          route_date: string
+          status?: string
+          team_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          actual_distance_miles?: number | null
+          actual_duration_minutes?: number | null
+          actual_fuel_cost_cents?: number | null
+          company_id?: string
+          created_at?: string
+          estimated_distance_miles?: number | null
+          estimated_duration_minutes?: number | null
+          estimated_fuel_cost_cents?: number | null
+          id?: string
+          is_optimized?: boolean | null
+          job_ids?: string[]
+          job_order?: number[] | null
+          name?: string
+          optimization_algorithm?: string | null
+          route_date?: string
+          status?: string
+          team_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "routes_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "routes_team_id_fkey"
+            columns: ["team_id"]
+            isOneToOne: false
+            referencedRelation: "teams"
             referencedColumns: ["id"]
           },
         ]
@@ -657,6 +931,7 @@ export type Database = {
     }
     Functions: {
       get_user_company_id: { Args: never; Returns: string }
+      get_user_role: { Args: never; Returns: string }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]
@@ -665,9 +940,10 @@ export type Database = {
         Returns: boolean
       }
       is_admin_or_manager: { Args: never; Returns: boolean }
+      is_owner: { Args: never; Returns: boolean }
     }
     Enums: {
-      app_role: "admin" | "manager" | "team_lead" | "cleaner"
+      app_role: "admin" | "manager" | "team_lead" | "cleaner" | "owner"
       job_service_type:
         | "standard_clean"
         | "deep_clean"
@@ -809,7 +1085,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      app_role: ["admin", "manager", "team_lead", "cleaner"],
+      app_role: ["admin", "manager", "team_lead", "cleaner", "owner"],
       job_service_type: [
         "standard_clean",
         "deep_clean",
