@@ -4,29 +4,50 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ── Shadcn/UI CSS Variables (Light + Dark) ── */
+/* ── STRATA Design System — Tema escuro industrial global ── */
 @layer base {
     :root {
-        --background: 0 0% 100%;
-        --foreground: 240 10% 3.9%;
-        --card: 0 0% 100%;
-        --card-foreground: 240 10% 3.9%;
-        --popover: 0 0% 100%;
-        --popover-foreground: 240 10% 3.9%;
+        /* Fundo escuro industrial */
+        --background: 240 6% 3%;
+        --foreground: 0 0% 96%;
+
+        /* Cards com fundo ligeiramente elevado */
+        --card: 240 5% 6%;
+        --card-foreground: 0 0% 96%;
+
+        /* Popovers/Dropdowns */
+        --popover: 240 5% 8%;
+        --popover-foreground: 0 0% 96%;
+
+        /* Marca: Verde Esmeralda */
         --primary: 160 84% 39%;
-        --primary-foreground: 0 0% 100%;
-        --secondary: 240 4.8% 95.9%;
-        --secondary-foreground: 240 5.9% 10%;
-        --muted: 240 4.8% 95.9%;
-        --muted-foreground: 240 3.8% 46.1%;
-        --accent: 240 4.8% 95.9%;
-        --accent-foreground: 240 5.9% 10%;
-        --destructive: 0 84.2% 60.2%;
+        --primary-foreground: 0 0% 0%;
+
+        /* Secundário */
+        --secondary: 240 4% 12%;
+        --secondary-foreground: 0 0% 96%;
+
+        /* Muted */
+        --muted: 240 4% 12%;
+        --muted-foreground: 240 5% 55%;
+
+        /* Accent */
+        --accent: 240 4% 12%;
+        --accent-foreground: 0 0% 96%;
+
+        /* Destructive */
+        --destructive: 0 62% 50%;
         --destructive-foreground: 0 0% 98%;
-        --border: 240 5.9% 90%;
-        --input: 240 5.9% 90%;
+
+        /* Bordas industriais finas */
+        --border: 240 4% 14%;
+        --input: 240 4% 14%;
         --ring: 160 84% 39%;
+
+        /* Raio zero — bordas retas industriais */
         --radius: 0rem;
+
+        /* Status */
         --success: 142 76% 36%;
         --success-foreground: 0 0% 100%;
         --warning: 38 92% 50%;
@@ -34,35 +55,44 @@
         --info: 217 91% 60%;
         --info-foreground: 0 0% 100%;
 
-        --sidebar-background: 0 0% 98%;
-        --sidebar-foreground: 240 5.3% 26.1%;
+        /* Charts */
+        --chart-1: 160 84% 39%;
+        --chart-2: 217 91% 60%;
+        --chart-3: 38 92% 50%;
+        --chart-4: 280 65% 60%;
+        --chart-5: 0 84% 60%;
+
+        /* Sidebar — mesma paleta escura */
+        --sidebar-background: 240 6% 5%;
+        --sidebar-foreground: 240 5% 65%;
         --sidebar-primary: 160 84% 39%;
-        --sidebar-primary-foreground: 0 0% 100%;
-        --sidebar-accent: 240 4.8% 95.9%;
-        --sidebar-accent-foreground: 240 5.9% 10%;
-        --sidebar-border: 220 13% 91%;
+        --sidebar-primary-foreground: 0 0% 0%;
+        --sidebar-accent: 240 4% 10%;
+        --sidebar-accent-foreground: 0 0% 96%;
+        --sidebar-border: 240 4% 12%;
         --sidebar-ring: 160 84% 39%;
     }
 
+    /* Dark class — mesmos valores (sistema é escuro por padrão) */
     .dark {
-        --background: 240 10% 3.9%;
-        --foreground: 0 0% 98%;
-        --card: 240 10% 3.9%;
-        --card-foreground: 0 0% 98%;
-        --popover: 240 10% 3.9%;
-        --popover-foreground: 0 0% 98%;
+        --background: 240 6% 3%;
+        --foreground: 0 0% 96%;
+        --card: 240 5% 6%;
+        --card-foreground: 0 0% 96%;
+        --popover: 240 5% 8%;
+        --popover-foreground: 0 0% 96%;
         --primary: 160 84% 39%;
-        --primary-foreground: 0 0% 100%;
-        --secondary: 240 3.7% 15.9%;
-        --secondary-foreground: 0 0% 98%;
-        --muted: 240 3.7% 15.9%;
-        --muted-foreground: 240 5% 64.9%;
-        --accent: 240 3.7% 15.9%;
-        --accent-foreground: 0 0% 98%;
-        --destructive: 0 62.8% 30.6%;
+        --primary-foreground: 0 0% 0%;
+        --secondary: 240 4% 12%;
+        --secondary-foreground: 0 0% 96%;
+        --muted: 240 4% 12%;
+        --muted-foreground: 240 5% 55%;
+        --accent: 240 4% 12%;
+        --accent-foreground: 0 0% 96%;
+        --destructive: 0 62% 50%;
         --destructive-foreground: 0 0% 98%;
-        --border: 240 3.7% 15.9%;
-        --input: 240 3.7% 15.9%;
+        --border: 240 4% 14%;
+        --input: 240 4% 14%;
         --ring: 160 84% 39%;
     }
 }

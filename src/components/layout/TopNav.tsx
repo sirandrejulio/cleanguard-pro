@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { Search, Bell, Globe, User, Settings, LogOut, Menu } from "lucide-react";
-import { Input } from "@/components/ui/input";
+import { Search, Bell, User, Settings, LogOut, Menu } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -13,27 +12,27 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { useAuth } from "@/hooks/useAuth";
 
-const languages = [
-  { code: "en", flag: "🇺🇸", label: "English" },
-  { code: "pt", flag: "🇧🇷", label: "Português" },
-  { code: "es", flag: "🇲🇽", label: "Español" },
-];
+// Idiomas — mesmo padrão compacto da landing Navbar
+const LANGS = [
+  { code: "en", label: "EN" },
+  { code: "pt", label: "PT" },
+  { code: "es", label: "ES" },
+] as const;
 
 interface TopNavProps {
   onMenuClick?: () => void;
   showMenu?: boolean;
 }
 
+// TopNav STRATA — glass bar com seletor de idiomas compacto
 export function TopNav({ onMenuClick, showMenu }: TopNavProps) {
   const { t, i18n } = useTranslation();
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
   const [search, setSearch] = useState("");
 
-  const currentLang = languages.find((l) => l.code === i18n.language) || languages[0];
-
   return (
-    <header className="h-14 bg-card border-b-2 border-border flex items-center px-4 md:px-6 gap-3 md:gap-4 shrink-0">
+    <header className="h-14 bg-card border-b border-border flex items-center px-4 md:px-6 gap-3 md:gap-4 shrink-0">
       {/* Mobile menu button */}
       {showMenu && (
         <Button variant="ghost" size="icon" onClick={onMenuClick} className="shrink-0">
@@ -44,36 +43,31 @@ export function TopNav({ onMenuClick, showMenu }: TopNavProps) {
       {/* Search */}
       <div className="flex-1 max-w-md relative hidden sm:block">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-        <Input
+        <input
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder={t("topnav.search")}
-          className="pl-9 h-9 border-2 text-sm"
+          className="w-full h-9 bg-white/5 border border-border text-foreground text-sm pl-9 pr-3 placeholder:text-muted-foreground focus:outline-none focus:border-primary transition-colors"
         />
       </div>
 
       <div className="flex items-center gap-1 md:gap-2 ml-auto">
-        {/* Language Switcher */}
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="sm" className="gap-1.5 text-sm">
-              <Globe className="w-4 h-4" />
-              <span className="hidden sm:inline">{currentLang.flag}</span>
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            {languages.map((lang) => (
-              <DropdownMenuItem
-                key={lang.code}
-                onClick={() => i18n.changeLanguage(lang.code)}
-                className={i18n.language === lang.code ? "bg-accent font-semibold" : ""}
-              >
-                <span className="mr-2">{lang.flag}</span>
-                {lang.label}
-              </DropdownMenuItem>
-            ))}
-          </DropdownMenuContent>
-        </DropdownMenu>
+        {/* Seletor de idioma compacto — idêntico à landing */}
+        <div className="flex items-center gap-1 bg-white/5 px-1 py-1">
+          {LANGS.map(({ code, label }) => (
+            <button
+              key={code}
+              onClick={() => i18n.changeLanguage(code)}
+              className={`px-2.5 py-1 text-[10px] font-mono tracking-wider transition-all duration-200 ${
+                i18n.language === code
+                  ? "bg-primary text-primary-foreground font-bold"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
 
         {/* Notifications */}
         <DropdownMenu>
@@ -92,7 +86,7 @@ export function TopNav({ onMenuClick, showMenu }: TopNavProps) {
         {/* User Menu */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <Button variant="ghost" size="icon" className="border-2 border-border">
+            <Button variant="ghost" size="icon" className="border border-border">
               <User className="w-5 h-5" />
             </Button>
           </DropdownMenuTrigger>
