@@ -15,6 +15,9 @@ import Dashboard from "./pages/Dashboard";
 import JobsPage from "./pages/JobsPage";
 import CustomersPage from "./pages/CustomersPage";
 import TeamsPage from "./pages/TeamsPage";
+import EvidencePage from "./pages/EvidencePage";
+import DisputesPage from "./pages/DisputesPage";
+import TimesheetsPage from "./pages/TimesheetsPage";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -52,9 +55,9 @@ const App = () => (
               <Route path="customers/new" element={<CustomersPage />} />
               <Route path="teams" element={<TeamsPage />} />
               {/* Placeholder routes for future module pages */}
-              <Route path="shield/evidence" element={<Dashboard />} />
-              <Route path="shield/disputes" element={<Dashboard />} />
-              <Route path="shield/timesheets" element={<Dashboard />} />
+              <Route path="shield/evidence" element={<EvidencePage />} />
+              <Route path="shield/disputes" element={<DisputesPage />} />
+              <Route path="shield/timesheets" element={<TimesheetsPage />} />
               <Route path="route/optimizer" element={<Dashboard />} />
               <Route path="route/daily" element={<Dashboard />} />
               <Route path="fill/waitlist" element={<Dashboard />} />
