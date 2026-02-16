@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { Search, Bell, Globe, User, Settings, LogOut } from "lucide-react";
+import { Search, Bell, Globe, User, Settings, LogOut, Menu } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
@@ -19,7 +19,12 @@ const languages = [
   { code: "es", flag: "🇲🇽", label: "Español" },
 ];
 
-export function TopNav() {
+interface TopNavProps {
+  onMenuClick?: () => void;
+  showMenu?: boolean;
+}
+
+export function TopNav({ onMenuClick, showMenu }: TopNavProps) {
   const { t, i18n } = useTranslation();
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
@@ -28,9 +33,16 @@ export function TopNav() {
   const currentLang = languages.find((l) => l.code === i18n.language) || languages[0];
 
   return (
-    <header className="h-14 bg-card border-b-2 border-border flex items-center px-6 gap-4 shrink-0">
+    <header className="h-14 bg-card border-b-2 border-border flex items-center px-4 md:px-6 gap-3 md:gap-4 shrink-0">
+      {/* Mobile menu button */}
+      {showMenu && (
+        <Button variant="ghost" size="icon" onClick={onMenuClick} className="shrink-0">
+          <Menu className="w-5 h-5" />
+        </Button>
+      )}
+
       {/* Search */}
-      <div className="flex-1 max-w-md relative">
+      <div className="flex-1 max-w-md relative hidden sm:block">
         <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
         <Input
           value={search}
@@ -40,7 +52,7 @@ export function TopNav() {
         />
       </div>
 
-      <div className="flex items-center gap-2 ml-auto">
+      <div className="flex items-center gap-1 md:gap-2 ml-auto">
         {/* Language Switcher */}
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

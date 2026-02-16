@@ -106,10 +106,10 @@ export default function JobsPage() {
   return (
     <div className="p-6 lg:p-8 space-y-6 max-w-7xl">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="font-display text-3xl font-black">{t("jobs.title")}</h1>
-          <p className="text-muted-foreground mt-1">{t("jobs.subtitle")}</p>
+          <h1 className="font-display text-2xl sm:text-3xl font-black">{t("jobs.title")}</h1>
+          <p className="text-muted-foreground mt-1 text-sm sm:text-base">{t("jobs.subtitle")}</p>
         </div>
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger asChild>
@@ -190,12 +190,12 @@ export default function JobsPage() {
       </div>
 
       {/* Filters */}
-      <div className="flex items-center gap-3 flex-wrap">
+      <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
         <div className="relative max-w-sm">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
           <Input value={search} onChange={(e) => setSearch(e.target.value)} placeholder={t("jobs.search")} className="pl-9 border-2" />
         </div>
-        <div className="flex gap-1">
+        <div className="flex gap-1 flex-wrap">
           {statuses.map(s => (
             <Button
               key={s}

@@ -2,27 +2,10 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, useLocation } from "react-router-dom";
 import {
-  LayoutDashboard,
-  Briefcase,
-  Users,
-  UserCog,
-  Shield,
-  Video,
-  AlertTriangle,
-  Clock,
-  MapPin,
-  Route,
-  Calendar,
-  Gift,
-  List,
-  Store,
-  DollarSign,
-  BarChart3,
-  Settings,
-  LogOut,
-  ChevronLeft,
-  ChevronDown,
-  ChevronRight,
+  LayoutDashboard, Briefcase, Users, UserCog, Shield, Video,
+  AlertTriangle, Clock, MapPin, Route, Calendar, Gift, List,
+  Store, DollarSign, BarChart3, Settings, LogOut, ChevronLeft,
+  ChevronDown, ChevronRight,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useAuth } from "@/hooks/useAuth";
@@ -34,7 +17,11 @@ interface NavItem {
   children?: { label: string; icon: React.ElementType; href: string }[];
 }
 
-export function Sidebar() {
+interface SidebarProps {
+  onNavigate?: () => void;
+}
+
+export function Sidebar({ onNavigate }: SidebarProps) {
   const { t } = useTranslation();
   const location = useLocation();
   const { signOut } = useAuth();
@@ -53,8 +40,7 @@ export function Sidebar() {
     { label: t("sidebar.customers"), icon: Users, href: "/dashboard/customers" },
     { label: t("sidebar.teams"), icon: UserCog, href: "/dashboard/teams" },
     {
-      label: t("sidebar.shield.title"),
-      icon: Shield,
+      label: t("sidebar.shield.title"), icon: Shield,
       children: [
         { label: t("sidebar.shield.evidence"), icon: Video, href: "/dashboard/shield/evidence" },
         { label: t("sidebar.shield.disputes"), icon: AlertTriangle, href: "/dashboard/shield/disputes" },
@@ -62,16 +48,14 @@ export function Sidebar() {
       ],
     },
     {
-      label: t("sidebar.route.title"),
-      icon: MapPin,
+      label: t("sidebar.route.title"), icon: MapPin,
       children: [
         { label: t("sidebar.route.optimizer"), icon: Route, href: "/dashboard/route/optimizer" },
         { label: t("sidebar.route.daily"), icon: Calendar, href: "/dashboard/route/daily" },
       ],
     },
     {
-      label: t("sidebar.fill.title"),
-      icon: Gift,
+      label: t("sidebar.fill.title"), icon: Gift,
       children: [
         { label: t("sidebar.fill.waitlist"), icon: List, href: "/dashboard/fill/waitlist" },
         { label: t("sidebar.fill.marketplace"), icon: Store, href: "/dashboard/fill/marketplace" },
@@ -86,16 +70,18 @@ export function Sidebar() {
   const isGroupActive = (children?: NavItem["children"]) =>
     children?.some((c) => location.pathname.startsWith(c.href));
 
+  const handleNav = () => onNavigate?.();
+
   return (
     <aside
       className={cn(
-        "h-screen bg-card border-r-2 border-border flex flex-col transition-all duration-200 shrink-0",
+        "h-full bg-card border-r-2 border-border flex flex-col transition-all duration-200 shrink-0",
         collapsed ? "w-16" : "w-64"
       )}
     >
       {/* Logo */}
       <div className="h-14 flex items-center px-4 border-b-2 border-border shrink-0">
-        <Link to="/dashboard" className="flex items-center gap-2">
+        <Link to="/dashboard" className="flex items-center gap-2" onClick={handleNav}>
           <div className="w-8 h-8 bg-primary flex items-center justify-center shrink-0">
             <Shield className="w-5 h-5 text-primary-foreground" />
           </div>
@@ -132,11 +118,7 @@ export function Sidebar() {
                       <span className="flex-1 text-left uppercase tracking-wider text-xs">
                         {item.label}
                       </span>
-                      {isOpen ? (
-                        <ChevronDown className="w-4 h-4" />
-                      ) : (
-                        <ChevronRight className="w-4 h-4" />
-                      )}
+                      {isOpen ? <ChevronDown className="w-4 h-4" /> : <ChevronRight className="w-4 h-4" />}
                     </>
                   )}
                 </button>
@@ -146,6 +128,7 @@ export function Sidebar() {
                       <Link
                         key={child.href}
                         to={child.href}
+                        onClick={handleNav}
                         className={cn(
                           "flex items-center gap-3 px-3 py-1.5 text-sm transition-colors",
                           isActive(child.href)
@@ -167,6 +150,7 @@ export function Sidebar() {
             <Link
               key={item.href}
               to={item.href!}
+              onClick={handleNav}
               className={cn(
                 "flex items-center gap-3 px-3 py-2 text-sm font-medium transition-colors",
                 isActive(item.href)
@@ -190,15 +174,17 @@ export function Sidebar() {
           <LogOut className="w-5 h-5 shrink-0" />
           {!collapsed && <span>{t("sidebar.signOut")}</span>}
         </button>
-        <button
-          onClick={() => setCollapsed(!collapsed)}
-          className="w-full flex items-center gap-3 px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
-        >
-          <ChevronLeft
-            className={cn("w-5 h-5 shrink-0 transition-transform", collapsed && "rotate-180")}
-          />
-          {!collapsed && <span>{t("sidebar.collapse")}</span>}
-        </button>
+        {!onNavigate && (
+          <button
+            onClick={() => setCollapsed(!collapsed)}
+            className="w-full flex items-center gap-3 px-3 py-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
+          >
+            <ChevronLeft
+              className={cn("w-5 h-5 shrink-0 transition-transform", collapsed && "rotate-180")}
+            />
+            {!collapsed && <span>{t("sidebar.collapse")}</span>}
+          </button>
+        )}
       </div>
     </aside>
   );
