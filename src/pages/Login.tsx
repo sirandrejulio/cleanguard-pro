@@ -6,7 +6,6 @@ import { AuthLayout } from "@/components/auth/AuthLayout";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
 
-// Página de Login — design STRATA escuro com inputs transparentes
 const Login = () => {
   const { t } = useTranslation();
   const { signIn } = useAuth();
@@ -30,25 +29,29 @@ const Login = () => {
         title: t("auth.login.errors.invalid"),
       });
     } else {
+      // Redireciona para /dashboard que faz RoleRedirect automático
       navigate("/dashboard");
     }
 
     setLoading(false);
   };
 
+  const inputClass =
+    "w-full h-12 bg-secondary border border-border text-foreground text-base px-4 placeholder:text-muted-foreground/50 focus:outline-none focus:border-primary transition-colors";
+
   return (
     <AuthLayout>
       <div className="space-y-8">
         {/* Header */}
         <div className="text-center">
-          <h1 className="font-display text-3xl font-black text-white">{t("auth.login.title")}</h1>
-          <p className="text-zinc-400 mt-2">{t("auth.login.subtitle")}</p>
+          <h1 className="font-display text-3xl font-black">{t("auth.login.title")}</h1>
+          <p className="text-muted-foreground mt-2">{t("auth.login.subtitle")}</p>
         </div>
 
-        {/* Formulário */}
+        {/* Form */}
         <form onSubmit={handleSubmit} className="space-y-5">
           <div className="space-y-2">
-            <label htmlFor="email" className="font-mono text-[11px] tracking-[0.2em] text-zinc-500 uppercase">
+            <label htmlFor="email" className="font-mono text-[11px] tracking-[0.2em] text-muted-foreground uppercase">
               {t("auth.login.email")}
             </label>
             <input
@@ -57,17 +60,17 @@ const Login = () => {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="w-full h-12 bg-white/5 border border-white/10 text-white text-base px-4 placeholder:text-zinc-600 focus:outline-none focus:border-brand-emerald transition-colors"
+              className={inputClass}
               placeholder="you@company.com"
             />
           </div>
 
           <div className="space-y-2">
             <div className="flex items-center justify-between">
-              <label htmlFor="password" className="font-mono text-[11px] tracking-[0.2em] text-zinc-500 uppercase">
+              <label htmlFor="password" className="font-mono text-[11px] tracking-[0.2em] text-muted-foreground uppercase">
                 {t("auth.login.password")}
               </label>
-              <Link to="/forgot-password" className="text-xs text-brand-emerald font-medium hover:underline">
+              <Link to="/forgot-password" className="text-xs text-primary font-medium hover:underline">
                 {t("auth.login.forgotPassword")}
               </Link>
             </div>
@@ -78,12 +81,12 @@ const Login = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
-                className="w-full h-12 bg-white/5 border border-white/10 text-white text-base px-4 pr-12 placeholder:text-zinc-600 focus:outline-none focus:border-brand-emerald transition-colors"
+                className={`${inputClass} pr-12`}
               />
               <button
                 type="button"
                 onClick={() => setShowPassword(!showPassword)}
-                className="absolute right-3 top-1/2 -translate-y-1/2 text-zinc-500 hover:text-white transition-colors"
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
               >
                 {showPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
               </button>
@@ -93,7 +96,7 @@ const Login = () => {
           <button
             type="submit"
             disabled={loading}
-            className="w-full h-12 bg-brand-emerald text-black font-bold text-sm tracking-wider uppercase hover:shadow-[0_0_30px_rgba(16,185,129,0.4)] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed group flex items-center justify-center"
+            className="w-full h-12 bg-primary text-primary-foreground font-bold text-sm tracking-wider uppercase hover:shadow-[0_0_30px_hsl(var(--primary)/0.4)] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed group flex items-center justify-center"
           >
             {loading ? t("auth.login.submitting") : t("auth.login.submit")}
             {!loading && <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />}
@@ -102,8 +105,8 @@ const Login = () => {
 
         {/* Footer */}
         <div className="text-center text-sm">
-          <span className="text-zinc-500">{t("auth.login.noAccount")} </span>
-          <Link to="/signup" className="text-brand-emerald font-semibold hover:underline">
+          <span className="text-muted-foreground">{t("auth.login.noAccount")} </span>
+          <Link to="/signup" className="text-primary font-semibold hover:underline">
             {t("auth.login.signUp")}
           </Link>
         </div>
