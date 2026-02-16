@@ -195,6 +195,79 @@ const pt = {
     security: "Segurança",
     copyright: "© 2025 CleanGuard Pro. Todos os direitos reservados.",
   },
+
+  // Auth
+  auth: {
+    login: {
+      title: "Bem-vindo de Volta",
+      subtitle: "Entre na sua conta CleanGuard Pro",
+      email: "Endereço de e-mail",
+      password: "Senha",
+      forgotPassword: "Esqueceu a senha?",
+      submit: "Entrar",
+      submitting: "Entrando...",
+      noAccount: "Não tem uma conta?",
+      signUp: "Comece o teste grátis",
+      errors: {
+        invalid: "E-mail ou senha inválidos",
+        generic: "Ocorreu um erro. Tente novamente.",
+      },
+    },
+    signup: {
+      title: "Comece seu Teste Grátis",
+      subtitle: "14 dias grátis. Sem cartão de crédito.",
+      step1: "Conta",
+      step2: "Empresa",
+      step3: "Plano",
+      fullName: "Nome completo",
+      email: "Endereço de e-mail",
+      password: "Senha",
+      passwordHint: "Mínimo de 8 caracteres",
+      companyName: "Nome da empresa",
+      phone: "Telefone",
+      phonePlaceholder: "(11) 99999-9999",
+      selectPlan: "Selecione seu plano",
+      next: "Continuar",
+      back: "Voltar",
+      submit: "Criar Conta",
+      submitting: "Criando conta...",
+      hasAccount: "Já tem uma conta?",
+      signIn: "Entrar",
+      errors: {
+        emailTaken: "Este e-mail já está cadastrado",
+        weakPassword: "A senha deve ter pelo menos 8 caracteres",
+        generic: "Ocorreu um erro. Tente novamente.",
+      },
+      success: {
+        title: "Verifique seu e-mail",
+        message: "Enviamos um link de confirmação para o seu e-mail. Verifique seu e-mail para continuar.",
+      },
+    },
+    forgotPassword: {
+      title: "Redefinir sua Senha",
+      subtitle: "Digite seu e-mail e enviaremos um link de redefinição",
+      email: "Endereço de e-mail",
+      submit: "Enviar Link de Redefinição",
+      submitting: "Enviando...",
+      backToLogin: "Voltar para login",
+      success: {
+        title: "Verifique seu e-mail",
+        message: "Se existir uma conta com esse e-mail, você receberá um link para redefinir a senha.",
+      },
+    },
+    resetPassword: {
+      title: "Definir Nova Senha",
+      subtitle: "Digite sua nova senha abaixo",
+      password: "Nova senha",
+      confirmPassword: "Confirmar nova senha",
+      submit: "Atualizar Senha",
+      submitting: "Atualizando...",
+      success: {
+        title: "Senha atualizada",
+        message: "Sua senha foi redefinida com sucesso. Você já pode entrar.",
+      },
+    },
+  },
 };
 
 export default pt;

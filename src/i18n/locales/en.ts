@@ -195,6 +195,79 @@ const en = {
     security: "Security",
     copyright: "© 2025 CleanGuard Pro. All rights reserved.",
   },
+
+  // Auth
+  auth: {
+    login: {
+      title: "Welcome Back",
+      subtitle: "Sign in to your CleanGuard Pro account",
+      email: "Email address",
+      password: "Password",
+      forgotPassword: "Forgot password?",
+      submit: "Sign In",
+      submitting: "Signing in...",
+      noAccount: "Don't have an account?",
+      signUp: "Start free trial",
+      errors: {
+        invalid: "Invalid email or password",
+        generic: "An error occurred. Please try again.",
+      },
+    },
+    signup: {
+      title: "Start Your Free Trial",
+      subtitle: "14 days free. No credit card required.",
+      step1: "Account",
+      step2: "Company",
+      step3: "Plan",
+      fullName: "Full name",
+      email: "Email address",
+      password: "Password",
+      passwordHint: "Minimum 8 characters",
+      companyName: "Company name",
+      phone: "Phone number",
+      phonePlaceholder: "(555) 123-4567",
+      selectPlan: "Select your plan",
+      next: "Continue",
+      back: "Back",
+      submit: "Create Account",
+      submitting: "Creating account...",
+      hasAccount: "Already have an account?",
+      signIn: "Sign in",
+      errors: {
+        emailTaken: "This email is already registered",
+        weakPassword: "Password must be at least 8 characters",
+        generic: "An error occurred. Please try again.",
+      },
+      success: {
+        title: "Check your email",
+        message: "We sent a confirmation link to your email address. Please verify your email to continue.",
+      },
+    },
+    forgotPassword: {
+      title: "Reset Your Password",
+      subtitle: "Enter your email and we'll send you a reset link",
+      email: "Email address",
+      submit: "Send Reset Link",
+      submitting: "Sending...",
+      backToLogin: "Back to sign in",
+      success: {
+        title: "Check your email",
+        message: "If an account exists with that email, you'll receive a password reset link.",
+      },
+    },
+    resetPassword: {
+      title: "Set New Password",
+      subtitle: "Enter your new password below",
+      password: "New password",
+      confirmPassword: "Confirm new password",
+      submit: "Update Password",
+      submitting: "Updating...",
+      success: {
+        title: "Password updated",
+        message: "Your password has been reset successfully. You can now sign in.",
+      },
+    },
+  },
 };
 
 export default en;
