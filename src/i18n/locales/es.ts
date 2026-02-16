@@ -96,6 +96,22 @@ const es = {
         },
       ],
     },
+    gallery: {
+      subtitle: "// NUESTROS SERVICIOS",
+      title: "LO QUE MEJOR HACEMOS.",
+      kitchen: "Limpieza de Cocina",
+      kitchenDesc: "Sanitización profunda de superficies, electrodomésticos y pisos con productos profesionales.",
+      windows: "Limpieza de Ventanas",
+      windowsDesc: "Resultados cristalinos para superficies de vidrio residenciales y comerciales.",
+      carpet: "Limpieza de Alfombras",
+      carpetDesc: "Tecnología de extracción a vapor para eliminar manchas profundas y alérgenos.",
+      bathroom: "Sanitización de Baño",
+      bathroomDesc: "Desinfección hospitalaria de todos los accesorios, azulejos y superficies.",
+      office: "Limpieza de Oficina",
+      officeDesc: "Limpieza comercial nocturna para espacios de trabajo y ambientes corporativos.",
+      moveout: "Limpieza Post-Mudanza",
+      moveoutDesc: "Restauración completa de la propiedad para garantizar la devolución del depósito.",
+    },
     faq: {
       title: "PREGUNTAS FRECUENTES",
       items: [

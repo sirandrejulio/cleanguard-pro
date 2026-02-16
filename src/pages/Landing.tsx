@@ -2,6 +2,7 @@ import Navbar from "@/components/landing/Navbar";
 import Hero from "@/components/landing/Hero";
 import SocialProof from "@/components/landing/SocialProof";
 import ModuleCards from "@/components/landing/ModuleCards";
+import ServiceGallery from "@/components/landing/ServiceGallery";
 import Showcase from "@/components/landing/Showcase";
 import Pricing from "@/components/landing/Pricing";
 import FAQ from "@/components/landing/FAQ";
@@ -18,6 +19,7 @@ const Landing = () => {
             <main>
                 <Hero />
                 <SocialProof />
+                <ServiceGallery />
                 <ModuleCards />
                 <Showcase />
                 <Pricing />
