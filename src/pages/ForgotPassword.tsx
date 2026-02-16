@@ -2,13 +2,11 @@ import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { ArrowLeft, ArrowRight, Check } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { AuthLayout } from "@/components/auth/AuthLayout";
 import { useAuth } from "@/hooks/useAuth";
 import { useToast } from "@/hooks/use-toast";
 
+// Página de recuperação de senha — design STRATA escuro
 const ForgotPassword = () => {
   const { t } = useTranslation();
   const { resetPassword } = useAuth();
@@ -37,16 +35,16 @@ const ForgotPassword = () => {
     return (
       <AuthLayout>
         <div className="text-center space-y-6">
-          <div className="w-16 h-16 bg-success/10 border-2 border-success mx-auto flex items-center justify-center">
-            <Check className="w-8 h-8 text-success" />
+          <div className="w-16 h-16 border border-brand-emerald/30 bg-brand-emerald/10 mx-auto flex items-center justify-center">
+            <Check className="w-8 h-8 text-brand-emerald" />
           </div>
-          <h2 className="font-display text-2xl font-black">{t("auth.forgotPassword.success.title")}</h2>
-          <p className="text-muted-foreground">{t("auth.forgotPassword.success.message")}</p>
+          <h2 className="font-display text-2xl font-black text-white">{t("auth.forgotPassword.success.title")}</h2>
+          <p className="text-zinc-400">{t("auth.forgotPassword.success.message")}</p>
           <Link to="/login">
-            <Button variant="outline" className="border-2 font-semibold">
-              <ArrowLeft className="w-4 h-4 mr-2" />
+            <button className="border border-white/10 text-white text-xs font-bold tracking-wider uppercase px-8 py-3 hover:border-white/30 hover:bg-white/5 transition-all duration-300 inline-flex items-center gap-2">
+              <ArrowLeft className="w-4 h-4" />
               {t("auth.forgotPassword.backToLogin")}
-            </Button>
+            </button>
           </Link>
         </div>
       </AuthLayout>
@@ -57,34 +55,38 @@ const ForgotPassword = () => {
     <AuthLayout>
       <div className="space-y-8">
         <div className="text-center">
-          <h1 className="font-display text-3xl font-black">{t("auth.forgotPassword.title")}</h1>
-          <p className="text-muted-foreground mt-2">{t("auth.forgotPassword.subtitle")}</p>
+          <h1 className="font-display text-3xl font-black text-white">{t("auth.forgotPassword.title")}</h1>
+          <p className="text-zinc-400 mt-2">{t("auth.forgotPassword.subtitle")}</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <div className="space-y-2">
-            <Label htmlFor="email" className="font-semibold text-sm uppercase tracking-wider">
+            <label htmlFor="email" className="font-mono text-[11px] tracking-[0.2em] text-zinc-500 uppercase">
               {t("auth.forgotPassword.email")}
-            </Label>
-            <Input
+            </label>
+            <input
               id="email"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
-              className="h-12 border-2 text-base"
+              className="w-full h-12 bg-white/5 border border-white/10 text-white text-base px-4 placeholder:text-zinc-600 focus:outline-none focus:border-brand-emerald transition-colors"
               placeholder="you@company.com"
             />
           </div>
 
-          <Button type="submit" className="w-full h-12 text-base font-bold group" disabled={loading}>
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full h-12 bg-brand-emerald text-black font-bold text-sm tracking-wider uppercase hover:shadow-[0_0_30px_rgba(16,185,129,0.4)] transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed group flex items-center justify-center"
+          >
             {loading ? t("auth.forgotPassword.submitting") : t("auth.forgotPassword.submit")}
             {!loading && <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />}
-          </Button>
+          </button>
         </form>
 
         <div className="text-center">
-          <Link to="/login" className="text-sm text-primary font-semibold hover:underline inline-flex items-center gap-1">
+          <Link to="/login" className="text-sm text-brand-emerald font-semibold hover:underline inline-flex items-center gap-1">
             <ArrowLeft className="w-4 h-4" />
             {t("auth.forgotPassword.backToLogin")}
           </Link>
