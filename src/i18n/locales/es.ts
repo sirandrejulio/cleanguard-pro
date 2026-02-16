@@ -196,6 +196,82 @@ const es = {
     copyright: "© 2025 CleanGuard Pro. Todos los derechos reservados.",
   },
 
+  // Dashboard
+  dashboard: {
+    title: "Panel",
+    welcome: "Bienvenido de nuevo",
+    welcomeSub: "Esto es lo que está pasando hoy.",
+    quickActions: {
+      title: "Acciones Rápidas",
+      newJob: "Nuevo Trabajo",
+      addCustomer: "Agregar Cliente",
+      optimizeRoutes: "Optimizar Rutas",
+      viewDisputes: "Ver Disputas",
+    },
+    stats: {
+      todayJobs: "Trabajos de Hoy",
+      activeCustomers: "Clientes Activos",
+      monthRevenue: "Ingresos del Mes",
+      protectionScore: "Índice de Protección",
+      completed: "completados",
+      total: "total",
+      thisMonth: "este mes",
+    },
+    upcomingJobs: {
+      title: "Próximos Trabajos",
+      noJobs: "No hay trabajos programados",
+      viewAll: "Ver Todos los Trabajos",
+    },
+    recentActivity: {
+      title: "Actividad Reciente",
+      noActivity: "Sin actividad reciente",
+    },
+    modules: {
+      shield: "Shield",
+      route: "Route",
+      fill: "Fill",
+    },
+  },
+
+  // Sidebar
+  sidebar: {
+    dashboard: "Panel",
+    jobs: "Trabajos",
+    customers: "Clientes",
+    teams: "Equipos",
+    shield: {
+      title: "Shield",
+      evidence: "Evidencias",
+      disputes: "Disputas",
+      timesheets: "Control de Tiempo",
+    },
+    route: {
+      title: "Route",
+      optimizer: "Optimizador",
+      daily: "Rutas del Día",
+    },
+    fill: {
+      title: "Fill",
+      waitlist: "Lista de Espera",
+      marketplace: "Marketplace",
+      pricing: "Precios",
+    },
+    analytics: "Analíticas",
+    settings: "Configuración",
+    signOut: "Cerrar Sesión",
+    collapse: "Colapsar",
+  },
+
+  // TopNav
+  topnav: {
+    search: "Buscar trabajos, clientes...",
+    notifications: "Notificaciones",
+    noNotifications: "Sin notificaciones nuevas",
+    profile: "Perfil",
+    settings: "Configuración",
+    signOut: "Cerrar Sesión",
+  },
+
   // Auth
   auth: {
     login: {

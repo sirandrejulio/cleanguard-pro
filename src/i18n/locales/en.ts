@@ -196,6 +196,82 @@ const en = {
     copyright: "© 2025 CleanGuard Pro. All rights reserved.",
   },
 
+  // Dashboard
+  dashboard: {
+    title: "Dashboard",
+    welcome: "Welcome back",
+    welcomeSub: "Here's what's happening today.",
+    quickActions: {
+      title: "Quick Actions",
+      newJob: "New Job",
+      addCustomer: "Add Customer",
+      optimizeRoutes: "Optimize Routes",
+      viewDisputes: "View Disputes",
+    },
+    stats: {
+      todayJobs: "Today's Jobs",
+      activeCustomers: "Active Customers",
+      monthRevenue: "Month Revenue",
+      protectionScore: "Protection Score",
+      completed: "completed",
+      total: "total",
+      thisMonth: "this month",
+    },
+    upcomingJobs: {
+      title: "Upcoming Jobs",
+      noJobs: "No upcoming jobs scheduled",
+      viewAll: "View All Jobs",
+    },
+    recentActivity: {
+      title: "Recent Activity",
+      noActivity: "No recent activity",
+    },
+    modules: {
+      shield: "Shield",
+      route: "Route",
+      fill: "Fill",
+    },
+  },
+
+  // Sidebar
+  sidebar: {
+    dashboard: "Dashboard",
+    jobs: "Jobs",
+    customers: "Customers",
+    teams: "Teams",
+    shield: {
+      title: "Shield",
+      evidence: "Evidence",
+      disputes: "Disputes",
+      timesheets: "Timesheets",
+    },
+    route: {
+      title: "Route",
+      optimizer: "Optimizer",
+      daily: "Daily Routes",
+    },
+    fill: {
+      title: "Fill",
+      waitlist: "Waitlist",
+      marketplace: "Marketplace",
+      pricing: "Pricing",
+    },
+    analytics: "Analytics",
+    settings: "Settings",
+    signOut: "Sign Out",
+    collapse: "Collapse",
+  },
+
+  // TopNav
+  topnav: {
+    search: "Search jobs, customers...",
+    notifications: "Notifications",
+    noNotifications: "No new notifications",
+    profile: "Profile",
+    settings: "Settings",
+    signOut: "Sign Out",
+  },
+
   // Auth
   auth: {
     login: {

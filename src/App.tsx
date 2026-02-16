@@ -4,11 +4,14 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/hooks/useAuth";
+import { ProtectedRoute } from "@/components/ProtectedRoute";
+import { DashboardLayout } from "@/components/layout/DashboardLayout";
 import Landing from "./pages/Landing";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
+import Dashboard from "./pages/Dashboard";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -30,8 +33,33 @@ const App = () => (
             <Route path="/forgot-password" element={<ForgotPassword />} />
             <Route path="/reset-password" element={<ResetPassword />} />
 
-            {/* Dashboard - coming in Phase 3 */}
-            {/* <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} /> */}
+            {/* Dashboard */}
+            <Route
+              path="/dashboard"
+              element={
+                <ProtectedRoute>
+                  <DashboardLayout />
+                </ProtectedRoute>
+              }
+            >
+              <Route index element={<Dashboard />} />
+              {/* Placeholder routes for future pages */}
+              <Route path="jobs" element={<Dashboard />} />
+              <Route path="jobs/new" element={<Dashboard />} />
+              <Route path="customers" element={<Dashboard />} />
+              <Route path="customers/new" element={<Dashboard />} />
+              <Route path="teams" element={<Dashboard />} />
+              <Route path="shield/evidence" element={<Dashboard />} />
+              <Route path="shield/disputes" element={<Dashboard />} />
+              <Route path="shield/timesheets" element={<Dashboard />} />
+              <Route path="route/optimizer" element={<Dashboard />} />
+              <Route path="route/daily" element={<Dashboard />} />
+              <Route path="fill/waitlist" element={<Dashboard />} />
+              <Route path="fill/marketplace" element={<Dashboard />} />
+              <Route path="fill/pricing" element={<Dashboard />} />
+              <Route path="analytics" element={<Dashboard />} />
+              <Route path="settings" element={<Dashboard />} />
+            </Route>
 
             {/* Catch-all */}
             <Route path="*" element={<NotFound />} />
