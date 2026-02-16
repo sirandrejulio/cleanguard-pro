@@ -478,6 +478,59 @@ const en = {
     },
   },
 
+  // Settings
+  settings: {
+    title: "Settings",
+    subtitle: "Manage your account and company settings",
+    save: "Save Changes",
+    error: "Error saving changes",
+    passwordMismatch: "Passwords do not match",
+    tabs: {
+      company: "Company",
+      profile: "Profile",
+      subscription: "Subscription",
+      security: "Security",
+    },
+    company: {
+      title: "Company Information",
+      name: "Company Name",
+      phone: "Phone",
+      address: "Business Address",
+      timezone: "Timezone",
+      currency: "Currency",
+      modules: "Enabled Modules",
+    },
+    profile: {
+      title: "Profile Information",
+      name: "Full Name",
+      email: "Email",
+      phone: "Phone",
+      emailNote: "Email cannot be changed here",
+    },
+    subscription: {
+      title: "Subscription & Billing",
+      currentPlan: "Current Plan",
+      trialInfo: "Your 14-day trial is active. Upgrade anytime.",
+      upgrade: "Upgrade",
+      proDesc: "For growing businesses — 15 members, AI features",
+      entDesc: "For large operations — unlimited members, API",
+    },
+    security: {
+      title: "Change Password",
+      newPassword: "New Password",
+      confirmPassword: "Confirm Password",
+      changePassword: "Update Password",
+      sessions: "Active Sessions",
+      sessionsDesc: "Manage your active login sessions",
+      currentSession: "Current Session",
+    },
+    success: {
+      company: "Company settings saved",
+      profile: "Profile updated",
+      password: "Password changed successfully",
+    },
+  },
+
   // Common
   common: {
     cancel: "Cancel",

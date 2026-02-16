@@ -478,6 +478,59 @@ const es = {
     },
   },
 
+  // Settings
+  settings: {
+    title: "Configuración",
+    subtitle: "Administra tu cuenta y configuración de la empresa",
+    save: "Guardar Cambios",
+    error: "Error al guardar cambios",
+    passwordMismatch: "Las contraseñas no coinciden",
+    tabs: {
+      company: "Empresa",
+      profile: "Perfil",
+      subscription: "Suscripción",
+      security: "Seguridad",
+    },
+    company: {
+      title: "Información de la Empresa",
+      name: "Nombre de la Empresa",
+      phone: "Teléfono",
+      address: "Dirección Comercial",
+      timezone: "Zona Horaria",
+      currency: "Moneda",
+      modules: "Módulos Habilitados",
+    },
+    profile: {
+      title: "Información del Perfil",
+      name: "Nombre Completo",
+      email: "Correo",
+      phone: "Teléfono",
+      emailNote: "El correo no puede ser cambiado aquí",
+    },
+    subscription: {
+      title: "Suscripción y Facturación",
+      currentPlan: "Plan Actual",
+      trialInfo: "Tu prueba de 14 días está activa. Mejora en cualquier momento.",
+      upgrade: "Mejorar Plan",
+      proDesc: "Para negocios en crecimiento — 15 miembros, funciones con IA",
+      entDesc: "Para operaciones grandes — miembros ilimitados, API",
+    },
+    security: {
+      title: "Cambiar Contraseña",
+      newPassword: "Nueva Contraseña",
+      confirmPassword: "Confirmar Contraseña",
+      changePassword: "Actualizar Contraseña",
+      sessions: "Sesiones Activas",
+      sessionsDesc: "Administra tus sesiones de inicio de sesión activas",
+      currentSession: "Sesión Actual",
+    },
+    success: {
+      company: "Configuración de la empresa guardada",
+      profile: "Perfil actualizado",
+      password: "Contraseña cambiada exitosamente",
+    },
+  },
+
   // Common
   common: {
     cancel: "Cancelar",
