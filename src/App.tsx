@@ -6,6 +6,8 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/hooks/useAuth";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
 import { SubscriptionGuard } from "@/components/auth/SubscriptionGuard";
+import { RoleGuard } from "@/components/auth/RoleGuard";
+import { RoleRedirect } from "@/components/auth/RoleRedirect";
 import { DashboardLayout } from "@/components/layout/DashboardLayout";
 import Landing from "./pages/Landing";
 import Login from "./pages/Login";
@@ -13,6 +15,10 @@ import Signup from "./pages/Signup";
 import ForgotPassword from "./pages/ForgotPassword";
 import ResetPassword from "./pages/ResetPassword";
 import Dashboard from "./pages/Dashboard";
+import OwnerDashboard from "./pages/owner/OwnerDashboard";
+import ManagerDashboard from "./pages/manager/ManagerDashboard";
+import TeamLeadDashboard from "./pages/team-lead/TeamLeadDashboard";
+import CleanerDashboard from "./pages/cleaner/CleanerDashboard";
 import JobsPage from "./pages/JobsPage";
 import CustomersPage from "./pages/CustomersPage";
 import TeamsPage from "./pages/TeamsPage";
@@ -58,17 +64,67 @@ const App = () => (
                 </ProtectedRoute>
               }
             >
-              <Route index element={<Dashboard />} />
+              {/* Role-based redirect at /dashboard */}
+              <Route index element={<RoleRedirect />} />
 
-              {/* CORE (Basic) */}
-              <Route path="jobs" element={<JobsPage />} />
-              <Route path="jobs/new" element={<JobsPage />} />
-              <Route path="customers" element={<CustomersPage />} />
-              <Route path="customers/new" element={<CustomersPage />} />
-              <Route path="teams" element={<TeamsPage />} />
-              <Route path="settings" element={<SettingsPage />} />
+              {/* Role-specific dashboards */}
+              <Route path="owner" element={
+                <RoleGuard allowedRoles={["owner"]}>
+                  <OwnerDashboard />
+                </RoleGuard>
+              } />
+              <Route path="admin" element={
+                <RoleGuard allowedRoles={["owner", "admin"]}>
+                  <Dashboard />
+                </RoleGuard>
+              } />
+              <Route path="manager" element={
+                <RoleGuard allowedRoles={["owner", "admin", "manager"]}>
+                  <ManagerDashboard />
+                </RoleGuard>
+              } />
+              <Route path="team-lead" element={
+                <RoleGuard allowedRoles={["owner", "admin", "manager", "team_lead"]}>
+                  <TeamLeadDashboard />
+                </RoleGuard>
+              } />
+              <Route path="cleaner" element={
+                <RoleGuard allowedRoles={["owner", "admin", "manager", "team_lead", "cleaner"]}>
+                  <CleanerDashboard />
+                </RoleGuard>
+              } />
 
-              {/* MODULES (Protected) */}
+              {/* CORE (Basic) — admin+ */}
+              <Route path="jobs" element={
+                <RoleGuard allowedRoles={["owner", "admin", "manager", "team_lead", "cleaner"]}>
+                  <JobsPage />
+                </RoleGuard>
+              } />
+              <Route path="jobs/new" element={
+                <RoleGuard allowedRoles={["owner", "admin", "manager"]}>
+                  <JobsPage />
+                </RoleGuard>
+              } />
+              <Route path="customers" element={
+                <RoleGuard allowedRoles={["owner", "admin", "manager"]}>
+                  <CustomersPage />
+                </RoleGuard>
+              } />
+              <Route path="customers/new" element={
+                <RoleGuard allowedRoles={["owner", "admin", "manager"]}>
+                  <CustomersPage />
+                </RoleGuard>
+              } />
+              <Route path="teams" element={
+                <RoleGuard allowedRoles={["owner", "admin", "manager"]}>
+                  <TeamsPage />
+                </RoleGuard>
+              } />
+              <Route path="settings" element={
+                <RoleGuard allowedRoles={["owner", "admin"]}>
+                  <SettingsPage />
+                </RoleGuard>
+              } />
 
               {/* SHIELD */}
               <Route path="shield/evidence" element={
@@ -77,9 +133,11 @@ const App = () => (
                 </SubscriptionGuard>
               } />
               <Route path="shield/disputes" element={
-                <SubscriptionGuard requiredModule="shield">
-                  <DisputesPage />
-                </SubscriptionGuard>
+                <RoleGuard allowedRoles={["owner", "admin", "manager"]}>
+                  <SubscriptionGuard requiredModule="shield">
+                    <DisputesPage />
+                  </SubscriptionGuard>
+                </RoleGuard>
               } />
               <Route path="shield/timesheets" element={
                 <SubscriptionGuard requiredModule="shield">
@@ -89,40 +147,51 @@ const App = () => (
 
               {/* ROUTE (Pro) */}
               <Route path="route/optimizer" element={
-                <SubscriptionGuard requiredTier="pro" requiredModule="route">
-                  <RouteOptimizerPage />
-                </SubscriptionGuard>
+                <RoleGuard allowedRoles={["owner", "admin", "manager"]}>
+                  <SubscriptionGuard requiredTier="pro" requiredModule="route">
+                    <RouteOptimizerPage />
+                  </SubscriptionGuard>
+                </RoleGuard>
               } />
               <Route path="route/daily" element={
-                <SubscriptionGuard requiredTier="pro" requiredModule="route">
-                  <DailyRoutesPage />
-                </SubscriptionGuard>
+                <RoleGuard allowedRoles={["owner", "admin", "manager", "team_lead"]}>
+                  <SubscriptionGuard requiredTier="pro" requiredModule="route">
+                    <DailyRoutesPage />
+                  </SubscriptionGuard>
+                </RoleGuard>
               } />
 
               {/* FILL (Pro) */}
               <Route path="fill/waitlist" element={
-                <SubscriptionGuard requiredTier="pro" requiredModule="fill">
-                  <WaitlistPage />
-                </SubscriptionGuard>
+                <RoleGuard allowedRoles={["owner", "admin", "manager"]}>
+                  <SubscriptionGuard requiredTier="pro" requiredModule="fill">
+                    <WaitlistPage />
+                  </SubscriptionGuard>
+                </RoleGuard>
               } />
               <Route path="fill/marketplace" element={
-                <SubscriptionGuard requiredTier="pro" requiredModule="fill">
-                  <MarketplacePage />
-                </SubscriptionGuard>
+                <RoleGuard allowedRoles={["owner", "admin", "manager"]}>
+                  <SubscriptionGuard requiredTier="pro" requiredModule="fill">
+                    <MarketplacePage />
+                  </SubscriptionGuard>
+                </RoleGuard>
               } />
               <Route path="fill/pricing" element={
-                <SubscriptionGuard requiredTier="pro" requiredModule="fill">
-                  <PricingEnginePage />
-                </SubscriptionGuard>
+                <RoleGuard allowedRoles={["owner", "admin"]}>
+                  <SubscriptionGuard requiredTier="pro" requiredModule="fill">
+                    <PricingEnginePage />
+                  </SubscriptionGuard>
+                </RoleGuard>
               } />
 
               {/* ANALYTICS (Pro) */}
               <Route path="analytics" element={
-                <SubscriptionGuard requiredTier="pro">
-                  <AnalyticsPage />
-                </SubscriptionGuard>
+                <RoleGuard allowedRoles={["owner", "admin", "manager"]}>
+                  <SubscriptionGuard requiredTier="pro">
+                    <AnalyticsPage />
+                  </SubscriptionGuard>
+                </RoleGuard>
               } />
-
             </Route>
 
             {/* Catch-all */}
