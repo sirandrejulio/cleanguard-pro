@@ -73,10 +73,10 @@ export default function TeamsPage() {
   return (
     <div className="p-6 lg:p-8 space-y-6 max-w-7xl">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
         <div>
-          <h1 className="font-display text-3xl font-black">{t("teams.title")}</h1>
-          <p className="text-muted-foreground mt-1">{t("teams.subtitle")}</p>
+          <h1 className="font-display text-2xl sm:text-3xl font-black">{t("teams.title")}</h1>
+          <p className="text-muted-foreground mt-1 text-sm sm:text-base">{t("teams.subtitle")}</p>
         </div>
         <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
           <DialogTrigger asChild>
