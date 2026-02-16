@@ -96,6 +96,22 @@ const en = {
         },
       ],
     },
+    gallery: {
+      subtitle: "// OUR SERVICES",
+      title: "WHAT WE DO BEST.",
+      kitchen: "Kitchen Cleaning",
+      kitchenDesc: "Deep sanitization of surfaces, appliances and floors with professional-grade products.",
+      windows: "Window Cleaning",
+      windowsDesc: "Crystal-clear results for residential and commercial glass surfaces.",
+      carpet: "Carpet Cleaning",
+      carpetDesc: "Steam extraction technology to remove deep stains and allergens.",
+      bathroom: "Bathroom Sanitization",
+      bathroomDesc: "Hospital-grade disinfection of all fixtures, tiles and surfaces.",
+      office: "Office Cleaning",
+      officeDesc: "After-hours commercial cleaning for workspaces and corporate environments.",
+      moveout: "Move-Out Cleaning",
+      moveoutDesc: "Complete property restoration to guarantee your security deposit back.",
+    },
     faq: {
       title: "FREQUENTLY ASKED QUESTIONS",
       items: [
