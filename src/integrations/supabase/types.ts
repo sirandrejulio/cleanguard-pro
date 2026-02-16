@@ -14,16 +14,145 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      companies: {
+        Row: {
+          business_address: string | null
+          created_at: string
+          default_currency: string | null
+          fill_enabled: boolean | null
+          id: string
+          name: string
+          owner_id: string
+          phone: string | null
+          route_enabled: boolean | null
+          shield_enabled: boolean | null
+          subscription_status: string | null
+          subscription_tier: string | null
+          timezone: string | null
+          updated_at: string
+        }
+        Insert: {
+          business_address?: string | null
+          created_at?: string
+          default_currency?: string | null
+          fill_enabled?: boolean | null
+          id?: string
+          name: string
+          owner_id: string
+          phone?: string | null
+          route_enabled?: boolean | null
+          shield_enabled?: boolean | null
+          subscription_status?: string | null
+          subscription_tier?: string | null
+          timezone?: string | null
+          updated_at?: string
+        }
+        Update: {
+          business_address?: string | null
+          created_at?: string
+          default_currency?: string | null
+          fill_enabled?: boolean | null
+          id?: string
+          name?: string
+          owner_id?: string
+          phone?: string | null
+          route_enabled?: boolean | null
+          shield_enabled?: boolean | null
+          subscription_status?: string | null
+          subscription_tier?: string | null
+          timezone?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          company_id: string | null
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+          is_active: boolean | null
+          phone: string | null
+          role: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          company_id?: string | null
+          created_at?: string
+          email: string
+          full_name?: string
+          id?: string
+          is_active?: boolean | null
+          phone?: string | null
+          role?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          avatar_url?: string | null
+          company_id?: string | null
+          created_at?: string
+          email?: string
+          full_name?: string
+          id?: string
+          is_active?: boolean | null
+          phone?: string | null
+          role?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "profiles_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_user_company_id: { Args: never; Returns: string }
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
+      is_admin_or_manager: { Args: never; Returns: boolean }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "manager" | "team_lead" | "cleaner"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +279,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "manager", "team_lead", "cleaner"],
+    },
   },
 } as const

@@ -195,6 +195,79 @@ const es = {
     security: "Seguridad",
     copyright: "© 2025 CleanGuard Pro. Todos los derechos reservados.",
   },
+
+  // Auth
+  auth: {
+    login: {
+      title: "Bienvenido de Nuevo",
+      subtitle: "Inicia sesión en tu cuenta CleanGuard Pro",
+      email: "Correo electrónico",
+      password: "Contraseña",
+      forgotPassword: "¿Olvidaste tu contraseña?",
+      submit: "Iniciar Sesión",
+      submitting: "Iniciando sesión...",
+      noAccount: "¿No tienes una cuenta?",
+      signUp: "Comienza tu prueba gratis",
+      errors: {
+        invalid: "Correo electrónico o contraseña inválidos",
+        generic: "Ocurrió un error. Intenta de nuevo.",
+      },
+    },
+    signup: {
+      title: "Comienza tu Prueba Gratis",
+      subtitle: "14 días gratis. Sin tarjeta de crédito.",
+      step1: "Cuenta",
+      step2: "Empresa",
+      step3: "Plan",
+      fullName: "Nombre completo",
+      email: "Correo electrónico",
+      password: "Contraseña",
+      passwordHint: "Mínimo 8 caracteres",
+      companyName: "Nombre de la empresa",
+      phone: "Teléfono",
+      phonePlaceholder: "(55) 1234-5678",
+      selectPlan: "Selecciona tu plan",
+      next: "Continuar",
+      back: "Regresar",
+      submit: "Crear Cuenta",
+      submitting: "Creando cuenta...",
+      hasAccount: "¿Ya tienes una cuenta?",
+      signIn: "Iniciar sesión",
+      errors: {
+        emailTaken: "Este correo ya está registrado",
+        weakPassword: "La contraseña debe tener al menos 8 caracteres",
+        generic: "Ocurrió un error. Intenta de nuevo.",
+      },
+      success: {
+        title: "Revisa tu correo",
+        message: "Enviamos un enlace de confirmación a tu correo electrónico. Verifica tu correo para continuar.",
+      },
+    },
+    forgotPassword: {
+      title: "Restablecer tu Contraseña",
+      subtitle: "Ingresa tu correo y te enviaremos un enlace para restablecerla",
+      email: "Correo electrónico",
+      submit: "Enviar Enlace",
+      submitting: "Enviando...",
+      backToLogin: "Volver a iniciar sesión",
+      success: {
+        title: "Revisa tu correo",
+        message: "Si existe una cuenta con ese correo, recibirás un enlace para restablecer tu contraseña.",
+      },
+    },
+    resetPassword: {
+      title: "Establecer Nueva Contraseña",
+      subtitle: "Ingresa tu nueva contraseña a continuación",
+      password: "Nueva contraseña",
+      confirmPassword: "Confirmar nueva contraseña",
+      submit: "Actualizar Contraseña",
+      submitting: "Actualizando...",
+      success: {
+        title: "Contraseña actualizada",
+        message: "Tu contraseña se restableció exitosamente. Ya puedes iniciar sesión.",
+      },
+    },
+  },
 };
 
 export default es;
