@@ -65,6 +65,165 @@ export type Database = {
         }
         Relationships: []
       }
+      customers: {
+        Row: {
+          company_id: string
+          created_at: string
+          email: string | null
+          full_name: string
+          id: string
+          is_active: boolean | null
+          notes: string | null
+          phone: string | null
+          property_address: string | null
+          property_city: string | null
+          property_sqft: number | null
+          property_state: string | null
+          property_type: string | null
+          property_zip: string | null
+          updated_at: string
+        }
+        Insert: {
+          company_id: string
+          created_at?: string
+          email?: string | null
+          full_name: string
+          id?: string
+          is_active?: boolean | null
+          notes?: string | null
+          phone?: string | null
+          property_address?: string | null
+          property_city?: string | null
+          property_sqft?: number | null
+          property_state?: string | null
+          property_type?: string | null
+          property_zip?: string | null
+          updated_at?: string
+        }
+        Update: {
+          company_id?: string
+          created_at?: string
+          email?: string | null
+          full_name?: string
+          id?: string
+          is_active?: boolean | null
+          notes?: string | null
+          phone?: string | null
+          property_address?: string | null
+          property_city?: string | null
+          property_sqft?: number | null
+          property_state?: string | null
+          property_type?: string | null
+          property_zip?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fk_customers_company"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      jobs: {
+        Row: {
+          actual_end: string | null
+          actual_start: string | null
+          assigned_to: string | null
+          company_id: string
+          created_at: string
+          customer_id: string
+          estimated_duration_minutes: number | null
+          final_price: number | null
+          id: string
+          internal_notes: string | null
+          is_recurring: boolean | null
+          job_number: string
+          notes: string | null
+          priority: number | null
+          quoted_price: number | null
+          scheduled_date: string
+          scheduled_time_end: string | null
+          scheduled_time_start: string | null
+          service_type: string
+          status: string
+          team_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          actual_end?: string | null
+          actual_start?: string | null
+          assigned_to?: string | null
+          company_id: string
+          created_at?: string
+          customer_id: string
+          estimated_duration_minutes?: number | null
+          final_price?: number | null
+          id?: string
+          internal_notes?: string | null
+          is_recurring?: boolean | null
+          job_number: string
+          notes?: string | null
+          priority?: number | null
+          quoted_price?: number | null
+          scheduled_date: string
+          scheduled_time_end?: string | null
+          scheduled_time_start?: string | null
+          service_type?: string
+          status?: string
+          team_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          actual_end?: string | null
+          actual_start?: string | null
+          assigned_to?: string | null
+          company_id?: string
+          created_at?: string
+          customer_id?: string
+          estimated_duration_minutes?: number | null
+          final_price?: number | null
+          id?: string
+          internal_notes?: string | null
+          is_recurring?: boolean | null
+          job_number?: string
+          notes?: string | null
+          priority?: number | null
+          quoted_price?: number | null
+          scheduled_date?: string
+          scheduled_time_end?: string | null
+          scheduled_time_start?: string | null
+          service_type?: string
+          status?: string
+          team_id?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fk_jobs_company"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fk_jobs_customer"
+            columns: ["customer_id"]
+            isOneToOne: false
+            referencedRelation: "customers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "fk_jobs_team"
+            columns: ["team_id"]
+            isOneToOne: false
+            referencedRelation: "teams"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       profiles: {
         Row: {
           avatar_url: string | null
@@ -108,6 +267,79 @@ export type Database = {
         Relationships: [
           {
             foreignKeyName: "profiles_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      team_members: {
+        Row: {
+          created_at: string
+          id: string
+          is_leader: boolean | null
+          team_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          is_leader?: boolean | null
+          team_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          is_leader?: boolean | null
+          team_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fk_team_members_team"
+            columns: ["team_id"]
+            isOneToOne: false
+            referencedRelation: "teams"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      teams: {
+        Row: {
+          color: string | null
+          company_id: string
+          created_at: string
+          id: string
+          is_active: boolean | null
+          max_jobs_per_day: number | null
+          name: string
+          updated_at: string
+        }
+        Insert: {
+          color?: string | null
+          company_id: string
+          created_at?: string
+          id?: string
+          is_active?: boolean | null
+          max_jobs_per_day?: number | null
+          name: string
+          updated_at?: string
+        }
+        Update: {
+          color?: string | null
+          company_id?: string
+          created_at?: string
+          id?: string
+          is_active?: boolean | null
+          max_jobs_per_day?: number | null
+          name?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "fk_teams_company"
             columns: ["company_id"]
             isOneToOne: false
             referencedRelation: "companies"

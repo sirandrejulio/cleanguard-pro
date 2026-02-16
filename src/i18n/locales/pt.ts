@@ -196,6 +196,82 @@ const pt = {
     copyright: "© 2025 CleanGuard Pro. Todos os direitos reservados.",
   },
 
+  // Dashboard
+  dashboard: {
+    title: "Painel",
+    welcome: "Bem-vindo de volta",
+    welcomeSub: "Veja o que está acontecendo hoje.",
+    quickActions: {
+      title: "Ações Rápidas",
+      newJob: "Novo Serviço",
+      addCustomer: "Adicionar Cliente",
+      optimizeRoutes: "Otimizar Rotas",
+      viewDisputes: "Ver Disputas",
+    },
+    stats: {
+      todayJobs: "Serviços Hoje",
+      activeCustomers: "Clientes Ativos",
+      monthRevenue: "Receita do Mês",
+      protectionScore: "Índice de Proteção",
+      completed: "concluídos",
+      total: "total",
+      thisMonth: "este mês",
+    },
+    upcomingJobs: {
+      title: "Próximos Serviços",
+      noJobs: "Nenhum serviço agendado",
+      viewAll: "Ver Todos os Serviços",
+    },
+    recentActivity: {
+      title: "Atividade Recente",
+      noActivity: "Nenhuma atividade recente",
+    },
+    modules: {
+      shield: "Shield",
+      route: "Route",
+      fill: "Fill",
+    },
+  },
+
+  // Sidebar
+  sidebar: {
+    dashboard: "Painel",
+    jobs: "Serviços",
+    customers: "Clientes",
+    teams: "Equipes",
+    shield: {
+      title: "Shield",
+      evidence: "Evidências",
+      disputes: "Disputas",
+      timesheets: "Folhas de Ponto",
+    },
+    route: {
+      title: "Route",
+      optimizer: "Otimizador",
+      daily: "Rotas do Dia",
+    },
+    fill: {
+      title: "Fill",
+      waitlist: "Lista de Espera",
+      marketplace: "Marketplace",
+      pricing: "Precificação",
+    },
+    analytics: "Análises",
+    settings: "Configurações",
+    signOut: "Sair",
+    collapse: "Recolher",
+  },
+
+  // TopNav
+  topnav: {
+    search: "Buscar serviços, clientes...",
+    notifications: "Notificações",
+    noNotifications: "Nenhuma notificação nova",
+    profile: "Perfil",
+    settings: "Configurações",
+    signOut: "Sair",
+  },
+
   // Auth
   auth: {
     login: {
