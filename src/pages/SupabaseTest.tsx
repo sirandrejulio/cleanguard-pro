@@ -45,7 +45,7 @@ const SupabaseTest = () => {
         const start = performance.now();
         try {
             const { data, error } = await supabase.from("companies").select("count", { count: "exact", head: true });
-            if (error && error.code !== "PGRST116" && error.status !== 406) {
+            if (error && error.code !== "PGRST116" && (error as any).status !== 406) {
                 // 406 is generic error for head request sometimes, but usually means connection ok
                 // We might get RLS error, which means connection IS ok to the DB, just not auth.
                 // If we get network error, that's different.
@@ -65,7 +65,7 @@ const SupabaseTest = () => {
         TABLES.forEach(async (tableName) => {
             const tStart = performance.now();
             try {
-                const { count, error } = await supabase.from(tableName).select("*", { count: "exact", head: true });
+                const { count, error } = await (supabase.from as any)(tableName).select("*", { count: "exact", head: true });
                 const latency = Math.round(performance.now() - tStart);
 
                 if (error) {
