@@ -1,30 +1,42 @@
 import { useTranslation } from "react-i18next";
-import { motion } from "framer-motion";
 
-export function SocialProof() {
-  const { t } = useTranslation();
+// Faixa de social proof com scroll infinito
+export default function SocialProof() {
+    const { t } = useTranslation();
+    const entities = t("landing.socialProof.entities", { returnObjects: true }) as Array<{
+        name: string;
+        tag: string;
+    }>;
 
-  return (
-    <section className="py-16 border-y-2 border-foreground/10 bg-secondary/50">
-      <div className="container mx-auto px-4 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-        >
-          <h2 className="font-display text-2xl md:text-3xl font-bold">{t("social.title")}</h2>
-          <p className="text-muted-foreground mt-2">{t("social.subtitle")}</p>
-        </motion.div>
+    // Duplicar para efeito de scroll infinito
+    const doubled = [...entities, ...entities];
 
-        {/* Placeholder company logos */}
-        <div className="mt-10 flex flex-wrap items-center justify-center gap-8 md:gap-16 opacity-40">
-          {["SparkleClean Co.", "ProMaids USA", "Fresh & Bright", "CleanTeam Pro", "MasterClean LLC"].map((name) => (
-            <div key={name} className="font-display font-bold text-lg md:text-xl tracking-tight text-foreground">
-              {name}
+    return (
+        <section id="section-0" className="py-12 bg-[#050505] border-y border-white/5 overflow-hidden">
+            <div className="max-w-7xl mx-auto px-6 mb-6">
+                <span className="font-mono text-[10px] tracking-[0.3em] text-zinc-600 uppercase">
+                    {t("landing.socialProof.label")}
+                </span>
             </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
+
+            {/* Marquee */}
+            <div className="relative">
+                <div className="flex animate-scroll whitespace-nowrap">
+                    {doubled.map((entity, i) => (
+                        <div
+                            key={i}
+                            className="inline-flex items-center gap-3 mx-6 px-5 py-3 bg-white/[0.02] border border-white/5 rounded-sm"
+                        >
+                            <span className="font-mono text-xs tracking-widest text-zinc-400">
+                                {entity.name}
+                            </span>
+                            <span className="font-mono text-[9px] tracking-wider text-brand-emerald bg-brand-emerald/10 px-2 py-0.5 rounded-full">
+                                {entity.tag}
+                            </span>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </section>
+    );
 }

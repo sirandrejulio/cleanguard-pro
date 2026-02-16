@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "@/hooks/useAuth";
 import { ProtectedRoute } from "@/components/ProtectedRoute";
+import { SubscriptionGuard } from "@/components/auth/SubscriptionGuard";
 import { DashboardLayout } from "@/components/layout/DashboardLayout";
 import Landing from "./pages/Landing";
 import Login from "./pages/Login";
@@ -25,6 +26,7 @@ import DailyRoutesPage from "./pages/DailyRoutesPage";
 import WaitlistPage from "./pages/WaitlistPage";
 import MarketplacePage from "./pages/MarketplacePage";
 import PricingEnginePage from "./pages/PricingEnginePage";
+import SupabaseTest from "./pages/SupabaseTest";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -39,6 +41,7 @@ const App = () => (
           <Routes>
             {/* Public */}
             <Route path="/" element={<Landing />} />
+            <Route path="/supabase-test" element={<SupabaseTest />} />
 
             {/* Auth */}
             <Route path="/login" element={<Login />} />
@@ -56,22 +59,70 @@ const App = () => (
               }
             >
               <Route index element={<Dashboard />} />
+
+              {/* CORE (Basic) */}
               <Route path="jobs" element={<JobsPage />} />
               <Route path="jobs/new" element={<JobsPage />} />
               <Route path="customers" element={<CustomersPage />} />
               <Route path="customers/new" element={<CustomersPage />} />
               <Route path="teams" element={<TeamsPage />} />
-              {/* Placeholder routes for future module pages */}
-              <Route path="shield/evidence" element={<EvidencePage />} />
-              <Route path="shield/disputes" element={<DisputesPage />} />
-              <Route path="shield/timesheets" element={<TimesheetsPage />} />
-              <Route path="route/optimizer" element={<RouteOptimizerPage />} />
-              <Route path="route/daily" element={<DailyRoutesPage />} />
-              <Route path="fill/waitlist" element={<WaitlistPage />} />
-              <Route path="fill/marketplace" element={<MarketplacePage />} />
-              <Route path="fill/pricing" element={<PricingEnginePage />} />
-              <Route path="analytics" element={<AnalyticsPage />} />
               <Route path="settings" element={<SettingsPage />} />
+
+              {/* MODULES (Protected) */}
+
+              {/* SHIELD */}
+              <Route path="shield/evidence" element={
+                <SubscriptionGuard requiredModule="shield">
+                  <EvidencePage />
+                </SubscriptionGuard>
+              } />
+              <Route path="shield/disputes" element={
+                <SubscriptionGuard requiredModule="shield">
+                  <DisputesPage />
+                </SubscriptionGuard>
+              } />
+              <Route path="shield/timesheets" element={
+                <SubscriptionGuard requiredModule="shield">
+                  <TimesheetsPage />
+                </SubscriptionGuard>
+              } />
+
+              {/* ROUTE (Pro) */}
+              <Route path="route/optimizer" element={
+                <SubscriptionGuard requiredTier="pro" requiredModule="route">
+                  <RouteOptimizerPage />
+                </SubscriptionGuard>
+              } />
+              <Route path="route/daily" element={
+                <SubscriptionGuard requiredTier="pro" requiredModule="route">
+                  <DailyRoutesPage />
+                </SubscriptionGuard>
+              } />
+
+              {/* FILL (Pro) */}
+              <Route path="fill/waitlist" element={
+                <SubscriptionGuard requiredTier="pro" requiredModule="fill">
+                  <WaitlistPage />
+                </SubscriptionGuard>
+              } />
+              <Route path="fill/marketplace" element={
+                <SubscriptionGuard requiredTier="pro" requiredModule="fill">
+                  <MarketplacePage />
+                </SubscriptionGuard>
+              } />
+              <Route path="fill/pricing" element={
+                <SubscriptionGuard requiredTier="pro" requiredModule="fill">
+                  <PricingEnginePage />
+                </SubscriptionGuard>
+              } />
+
+              {/* ANALYTICS (Pro) */}
+              <Route path="analytics" element={
+                <SubscriptionGuard requiredTier="pro">
+                  <AnalyticsPage />
+                </SubscriptionGuard>
+              } />
+
             </Route>
 
             {/* Catch-all */}

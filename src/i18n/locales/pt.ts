@@ -8,6 +8,133 @@ const pt = {
     getStarted: "Teste Grátis",
   },
 
+  // Página Inicial (Design STRATA)
+  landing: {
+    nav: {
+      links: ["Proteção", "Casos de Uso", "Planos", "Dúvidas"],
+      cta: "Acessar Sistema",
+    },
+    hero: {
+      tag: "// GESTÃO OPERACIONAL INTELIGENTE V.2.0",
+      titleLine1: "PROTEJA SEU",
+      titleLine2: "NEGÓCIO DE LIMPEZA.",
+      description: "Seu funcionário fez o serviço, mas o cliente diz que não? Com o Clean Guard Pro, cada limpeza é registrada com vídeo, GPS e hora exata. Chega de perder dinheiro com disputas injustas.",
+      ctaPrimary: "Começar Agora",
+      ctaSecondary: "Como Funciona?",
+    },
+    socialProof: {
+      label: "CLIENTES_PROTEGIDOS:",
+      entities: [
+        { name: "LIMPEZA TOTAL", tag: "Protegido" },
+        { name: "MASTER CLEAN", tag: "+98% Satisfação" },
+        { name: "GRUPO NOVA BRILHO", tag: "Monitorando" },
+        { name: "CLEAN SERVICE", tag: "Risco: Zero" },
+        { name: "TOP FACILITIES", tag: "Ativo: 24/7" },
+        { name: "BRILHO & CIA", tag: "Alerta: Nenhum" },
+      ],
+    },
+    modules: {
+      title: "COMO FUNCIONA",
+      subtitle: "SHIELD_SYSTEM_V.01",
+      cards: [
+        {
+          title: "Evidência Digital",
+          description: "Grave o serviço com vídeo + GPS + hora exata. Quando o cliente reclamar, você mostra a prova. Simples assim.",
+          meta: ["GPS+CAM", "TEMPO REAL"],
+        },
+        {
+          title: "Rastreamento de Rota",
+          description: "Veja onde cada equipe está, a qualquer momento. Sem surpresas.",
+        },
+        {
+          title: "Performance Operacional",
+          description: "Quanto tempo cada serviço leva? Quem rende mais? Descubra com dados reais.",
+        },
+        {
+          title: "Alerta Inteligente",
+          description: "Se uma equipe não chegou ao local, você sabe antes do cliente ligar.",
+        },
+      ],
+    },
+    showcase: {
+      title: "RESULTADOS REAIS",
+      subtitle: "Empresas que já eliminaram disputas injustas com o Clean Guard Pro.",
+      cta: "Ver Todos os Casos",
+      projects: [
+        { title: "Torre Empresarial Sul", stat: "100% Coberto", tags: ["CORPORATIVO", "RISCO: ZERO"] },
+        { title: "Galpão Logístico A", stat: "-15% Custos", tags: ["INDUSTRIAL", "EFICIÊNCIA: ALTA"] },
+        { title: "Shopping Center Leste", stat: "Sem Incidentes", tags: ["VAREJO", "24/7 ATIVO"] },
+      ],
+    },
+    pricing: {
+      toggleMonthly: "Mensal",
+      toggleAnnual: "Anual",
+      subtitle: "Escolha o plano ideal para o tamanho da sua operação. Sem taxa de adesão.",
+      recommended: "Mais Popular",
+      plans: [
+        {
+          name: "INICIAL",
+          price: "R$ 297",
+          period: "/mês",
+          features: ["Até 5 funcionários", "Registros com foto + GPS", "Relatórios básicos por e-mail"],
+          cta: "Começar Grátis",
+        },
+        {
+          name: "PROFISSIONAL",
+          price: "R$ 697",
+          period: "/mês",
+          features: ["Até 30 funcionários", "Vídeo + GPS + Timestamp", "Alertas em tempo real", "Dashboard completo", "Suporte prioritário"],
+          cta: "Testar 14 Dias Grátis",
+          highlight: true,
+        },
+        {
+          name: "CORPORATIVO",
+          price: "Sob Consulta",
+          period: "",
+          features: ["Funcionários ilimitados", "Marca própria (White-label)", "API completa", "Implantação dedicada"],
+          cta: "Falar com Vendas",
+        },
+      ],
+    },
+    faq: {
+      title: "PERGUNTAS FREQUENTES",
+      items: [
+        {
+          q: "Como funciona a prova digital?",
+          a: "O funcionário grava um vídeo rápido pelo celular no início e final do serviço. O sistema adiciona automaticamente localização exata, data e hora. Se o cliente contestar, você tem a prova na mão.",
+        },
+        {
+          q: "Preciso comprar equipamento especial?",
+          a: "Não. O Clean Guard Pro funciona no celular que seus funcionários já usam. Android ou iPhone, basta baixar o aplicativo.",
+        },
+        {
+          q: "E se o funcionário não tiver internet no local?",
+          a: "O sistema salva tudo offline e envia automaticamente quando o celular encontrar sinal de Wi-Fi ou dados móveis.",
+        },
+        {
+          q: "Quanto tempo leva para começar a usar?",
+          a: "Menos de 15 minutos. Cadastre sua empresa, convide seus funcionários e eles já podem registrar os serviços no mesmo dia.",
+        },
+        {
+          q: "Os dados podem ser usados juridicamente?",
+          a: "Sim. Os registros incluem metadados de GPS e timestamp verificáveis que são aceitos como evidência em processos trabalhistas e comerciais.",
+        },
+      ],
+    },
+    footer: {
+      description: "Proteção operacional e jurídica para empresas de limpeza e facilities.",
+      platform: "[Plataforma]",
+      platformLinks: ["Evidência Digital", "Rastreamento GPS", "Dashboard", "Planos"],
+      company: "[Empresa]",
+      companyLinks: ["Sobre Nós", "Blog", "Contato"],
+      newsletter: "Não perca novidades",
+      emailPlaceholder: "Seu e-mail corporativo",
+      subscribe: "Inscrever-se",
+      copyright: "© 2026 Clean Guard Pro. Todos os direitos reservados.",
+      tagline: "Proteção Legal e Operacional para Facilities.",
+    },
+  },
+
   // Hero
   hero: {
     badge: "A Plataforma #1 de Proteção para Empresas de Limpeza",

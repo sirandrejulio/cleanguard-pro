@@ -1,72 +1,88 @@
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
-import { Shield } from "lucide-react";
 
-export function Footer() {
-  const { t } = useTranslation();
+// Footer com tipografia gigante de fundo, grid de links e newsletter
+export default function Footer() {
+    const { t } = useTranslation();
+    const platformLinks = t("landing.footer.platformLinks", { returnObjects: true }) as string[];
+    const companyLinks = t("landing.footer.companyLinks", { returnObjects: true }) as string[];
 
-  return (
-    <footer className="bg-foreground text-background py-16">
-      <div className="container mx-auto px-4">
-        <div className="grid md:grid-cols-4 gap-12">
-          {/* Brand */}
-          <div className="md:col-span-1">
-            <div className="flex items-center gap-2 mb-4">
-              <div className="w-8 h-8 bg-primary flex items-center justify-center">
-                <Shield className="w-5 h-5 text-primary-foreground" />
-              </div>
-              <span className="font-display font-bold text-lg">
-                CleanGuard <span className="text-primary">Pro</span>
-              </span>
+    return (
+        <footer className="relative bg-[#050505] border-t border-white/5 overflow-hidden">
+            {/* Texto gigante de fundo */}
+            <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none" aria-hidden="true">
+                <span className="font-display font-black text-[15vw] text-white/[0.02] tracking-tighter whitespace-nowrap">
+                    CLEAN GUARD
+                </span>
             </div>
-            <p className="text-sm opacity-60 leading-relaxed">
-              {t("footer.description")}
-            </p>
-          </div>
 
-          {/* Product */}
-          <div>
-            <h4 className="font-display font-bold mb-4 text-sm uppercase tracking-widest opacity-40">
-              {t("footer.product")}
-            </h4>
-            <ul className="space-y-3">
-              <li><a href="#modules" className="text-sm opacity-70 hover:opacity-100 transition-opacity">SHIELD</a></li>
-              <li><a href="#modules" className="text-sm opacity-70 hover:opacity-100 transition-opacity">ROUTE</a></li>
-              <li><a href="#modules" className="text-sm opacity-70 hover:opacity-100 transition-opacity">FILL</a></li>
-              <li><a href="#pricing" className="text-sm opacity-70 hover:opacity-100 transition-opacity">{t("nav.pricing")}</a></li>
-            </ul>
-          </div>
+            <div className="relative z-10 max-w-6xl mx-auto px-6 py-16">
+                <div className="grid md:grid-cols-4 gap-12 mb-16">
+                    {/* Coluna brand */}
+                    <div className="md:col-span-1">
+                        <h3 className="font-display font-bold text-lg text-white tracking-tight mb-3">
+                            Clean<span className="text-brand-emerald">Guard</span> Pro
+                        </h3>
+                        <p className="text-xs text-zinc-600 leading-relaxed">
+                            {t("landing.footer.description")}
+                        </p>
+                    </div>
 
-          {/* Company */}
-          <div>
-            <h4 className="font-display font-bold mb-4 text-sm uppercase tracking-widest opacity-40">
-              {t("footer.company")}
-            </h4>
-            <ul className="space-y-3">
-              <li><a href="#" className="text-sm opacity-70 hover:opacity-100 transition-opacity">{t("footer.about")}</a></li>
-              <li><a href="#" className="text-sm opacity-70 hover:opacity-100 transition-opacity">{t("footer.careers")}</a></li>
-              <li><a href="#" className="text-sm opacity-70 hover:opacity-100 transition-opacity">{t("footer.blog")}</a></li>
-              <li><a href="#" className="text-sm opacity-70 hover:opacity-100 transition-opacity">{t("footer.contact")}</a></li>
-            </ul>
-          </div>
+                    {/* Coluna plataforma */}
+                    <div>
+                        <h4 className="font-mono text-[10px] tracking-widest text-zinc-600 uppercase mb-4">
+                            {t("landing.footer.platform")}
+                        </h4>
+                        <ul className="space-y-2">
+                            {platformLinks.map((link, i) => (
+                                <li key={i}>
+                                    <a href="#" className="text-xs text-zinc-500 hover:text-white transition-colors">{link}</a>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
 
-          {/* Legal */}
-          <div>
-            <h4 className="font-display font-bold mb-4 text-sm uppercase tracking-widest opacity-40">
-              {t("footer.legal")}
-            </h4>
-            <ul className="space-y-3">
-              <li><a href="#" className="text-sm opacity-70 hover:opacity-100 transition-opacity">{t("footer.privacy")}</a></li>
-              <li><a href="#" className="text-sm opacity-70 hover:opacity-100 transition-opacity">{t("footer.terms")}</a></li>
-              <li><a href="#" className="text-sm opacity-70 hover:opacity-100 transition-opacity">{t("footer.security")}</a></li>
-            </ul>
-          </div>
-        </div>
+                    {/* Coluna empresa */}
+                    <div>
+                        <h4 className="font-mono text-[10px] tracking-widest text-zinc-600 uppercase mb-4">
+                            {t("landing.footer.company")}
+                        </h4>
+                        <ul className="space-y-2">
+                            {companyLinks.map((link, i) => (
+                                <li key={i}>
+                                    <a href="#" className="text-xs text-zinc-500 hover:text-white transition-colors">{link}</a>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
 
-        <div className="mt-16 pt-8 border-t border-background/10 text-center text-sm opacity-40">
-          {t("footer.copyright")}
-        </div>
-      </div>
-    </footer>
-  );
+                    {/* Newsletter */}
+                    <div>
+                        <h4 className="font-mono text-[10px] tracking-widest text-zinc-600 uppercase mb-4">
+                            {t("landing.footer.newsletter")}
+                        </h4>
+                        <div className="flex gap-2">
+                            <input
+                                type="email"
+                                placeholder={t("landing.footer.emailPlaceholder")}
+                                className="flex-1 bg-white/5 border border-white/10 rounded-lg px-3 py-2 text-xs text-white placeholder:text-zinc-700 focus:outline-none focus:border-brand-emerald/50"
+                            />
+                            <button className="bg-white text-black text-xs font-bold px-4 py-2 rounded-lg hover:bg-brand-emerald transition-colors">
+                                {t("landing.footer.subscribe")}
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                {/* Rodapé final */}
+                <div className="flex flex-col md:flex-row items-center justify-between gap-4 pt-8 border-t border-white/5">
+                    <p className="font-mono text-[10px] text-zinc-700">
+                        {t("landing.footer.copyright")}
+                    </p>
+                    <p className="font-mono text-[10px] text-zinc-700">
+                        {t("landing.footer.tagline")}
+                    </p>
+                </div>
+            </div>
+        </footer>
+    );
 }

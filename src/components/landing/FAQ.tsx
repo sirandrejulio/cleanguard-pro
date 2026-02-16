@@ -1,50 +1,55 @@
+import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { motion } from "framer-motion";
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion";
+import { Plus, Minus } from "lucide-react";
 
-export function FAQ() {
-  const { t } = useTranslation();
+// FAQ accordion minimalista
+export default function FAQ() {
+    const { t } = useTranslation();
+    const items = t("landing.faq.items", { returnObjects: true }) as Array<{
+        q: string;
+        a: string;
+    }>;
+    const [openIndex, setOpenIndex] = useState<number | null>(null);
 
-  const items = t("faq.items", { returnObjects: true }) as Array<{ q: string; a: string }>;
+    return (
+        <section id="section-3" className="py-24 px-6 bg-[#050505]">
+            <div className="max-w-3xl mx-auto">
+                {/* Header */}
+                <h2 className="font-display font-black text-3xl md:text-4xl text-white tracking-tighter mb-12 text-center">
+                    {t("landing.faq.title")}
+                </h2>
 
-  return (
-    <section id="faq" className="py-24">
-      <div className="container mx-auto px-4 max-w-3xl">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="text-center mb-16"
-        >
-          <h2 className="font-display text-4xl md:text-5xl font-black">{t("faq.title")}</h2>
-        </motion.div>
-
-        <Accordion type="single" collapsible className="space-y-4">
-          {items.map((item, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, y: 10 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.05 }}
-            >
-              <AccordionItem value={`item-${i}`} className="border-2 border-border px-6">
-                <AccordionTrigger className="font-display font-bold text-left hover:no-underline py-5">
-                  {item.q}
-                </AccordionTrigger>
-                <AccordionContent className="text-muted-foreground pb-5 leading-relaxed">
-                  {item.a}
-                </AccordionContent>
-              </AccordionItem>
-            </motion.div>
-          ))}
-        </Accordion>
-      </div>
-    </section>
-  );
+                {/* Items */}
+                <div className="divide-y divide-white/5">
+                    {items.map((item, i) => {
+                        const isOpen = openIndex === i;
+                        return (
+                            <div key={i} className="py-5">
+                                <button
+                                    onClick={() => setOpenIndex(isOpen ? null : i)}
+                                    className="w-full flex items-center justify-between gap-4 text-left group"
+                                >
+                                    <span className="font-medium text-white group-hover:text-brand-emerald transition-colors">
+                                        {item.q}
+                                    </span>
+                                    <span className="shrink-0 w-6 h-6 flex items-center justify-center rounded-full border border-white/10 group-hover:border-brand-emerald/50 transition-colors">
+                                        {isOpen ? (
+                                            <Minus className="w-3 h-3 text-brand-emerald" />
+                                        ) : (
+                                            <Plus className="w-3 h-3 text-zinc-500" />
+                                        )}
+                                    </span>
+                                </button>
+                                {isOpen && (
+                                    <p className="mt-3 text-sm text-zinc-500 leading-relaxed pr-10 animate-accordion-down">
+                                        {item.a}
+                                    </p>
+                                )}
+                            </div>
+                        );
+                    })}
+                </div>
+            </div>
+        </section>
+    );
 }

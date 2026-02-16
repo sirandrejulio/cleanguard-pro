@@ -1,119 +1,65 @@
-import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { Menu, X, Globe, Shield } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
 
-const languages = [
-  { code: "en", label: "English", flag: "🇺🇸" },
-  { code: "pt", label: "Português", flag: "🇧🇷" },
-  { code: "es", label: "Español", flag: "🇲🇽" },
-];
+// Componente Navbar da landing page com suporte a 3 idiomas e seletor de idioma
+const LANGS = [
+    { code: "en", label: "EN" },
+    { code: "pt", label: "PT" },
+    { code: "es", label: "ES" },
+] as const;
 
-export function Navbar() {
-  const { t, i18n } = useTranslation();
-  const [mobileOpen, setMobileOpen] = useState(false);
+export default function Navbar() {
+    const { t, i18n } = useTranslation();
+    const links = t("landing.nav.links", { returnObjects: true }) as string[];
 
-  const currentLang = languages.find((l) => l.code === i18n.language) || languages[0];
+    return (
+        <nav className="fixed top-0 w-full z-50 glass border-b border-white/5">
+            <div className="max-w-7xl mx-auto flex items-center justify-between px-6 py-4">
+                {/* Logo */}
+                <Link to="/" className="font-display font-bold text-lg tracking-tight text-white">
+                    Clean<span className="text-brand-emerald">Guard</span> Pro
+                </Link>
 
-  const scrollTo = (id: string) => {
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-    setMobileOpen(false);
-  };
+                {/* Links centrais */}
+                <div className="hidden md:flex items-center gap-8">
+                    {links.map((link, i) => (
+                        <a
+                            key={i}
+                            href={`#section-${i}`}
+                            className="font-mono text-xs tracking-widest uppercase text-zinc-500 hover:text-white transition-colors relative group"
+                        >
+                            {link}
+                            <span className="absolute -bottom-1 left-0 h-px w-0 bg-brand-emerald group-hover:w-full transition-all duration-300" />
+                        </a>
+                    ))}
+                </div>
 
-  return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm border-b-2 border-foreground/10">
-      <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-        {/* Logo */}
-        <Link to="/" className="flex items-center gap-2">
-          <div className="w-8 h-8 bg-primary flex items-center justify-center">
-            <Shield className="w-5 h-5 text-primary-foreground" />
-          </div>
-          <span className="font-display font-bold text-lg tracking-tight">
-            CleanGuard <span className="text-primary">Pro</span>
-          </span>
-        </Link>
+                {/* Seletor de idioma + CTA */}
+                <div className="flex items-center gap-4">
+                    {/* Seletor de idioma compacto */}
+                    <div className="flex items-center gap-1 bg-white/5 rounded-full px-1 py-1">
+                        {LANGS.map(({ code, label }) => (
+                            <button
+                                key={code}
+                                onClick={() => i18n.changeLanguage(code)}
+                                className={`px-2.5 py-1 text-[10px] font-mono tracking-wider rounded-full transition-all duration-200 ${i18n.language === code
+                                    ? "bg-brand-emerald text-black font-bold"
+                                    : "text-zinc-500 hover:text-white"
+                                    }`}
+                            >
+                                {label}
+                            </button>
+                        ))}
+                    </div>
 
-        {/* Desktop Nav */}
-        <div className="hidden md:flex items-center gap-8">
-          <button onClick={() => scrollTo("modules")} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-            {t("nav.modules")}
-          </button>
-          <button onClick={() => scrollTo("pricing")} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-            {t("nav.pricing")}
-          </button>
-          <button onClick={() => scrollTo("faq")} className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-            {t("nav.faq")}
-          </button>
-        </div>
-
-        {/* Right side */}
-        <div className="hidden md:flex items-center gap-3">
-          {/* Language Switcher */}
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="sm" className="gap-2">
-                <Globe className="w-4 h-4" />
-                <span className="text-xs">{currentLang.flag}</span>
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              {languages.map((lang) => (
-                <DropdownMenuItem
-                  key={lang.code}
-                  onClick={() => i18n.changeLanguage(lang.code)}
-                  className={i18n.language === lang.code ? "bg-accent" : ""}
-                >
-                  <span className="mr-2">{lang.flag}</span>
-                  {lang.label}
-                </DropdownMenuItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
-
-          <Link to="/login">
-            <Button variant="ghost" size="sm">{t("nav.login")}</Button>
-          </Link>
-          <Link to="/signup">
-            <Button size="sm" className="font-semibold">{t("nav.getStarted")}</Button>
-          </Link>
-        </div>
-
-        {/* Mobile Toggle */}
-        <button className="md:hidden" onClick={() => setMobileOpen(!mobileOpen)}>
-          {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-        </button>
-      </div>
-
-      {/* Mobile Menu */}
-      {mobileOpen && (
-        <div className="md:hidden border-t-2 border-foreground/10 bg-background p-4 space-y-4">
-          <button onClick={() => scrollTo("modules")} className="block w-full text-left py-2 font-medium">{t("nav.modules")}</button>
-          <button onClick={() => scrollTo("pricing")} className="block w-full text-left py-2 font-medium">{t("nav.pricing")}</button>
-          <button onClick={() => scrollTo("faq")} className="block w-full text-left py-2 font-medium">{t("nav.faq")}</button>
-          <div className="flex gap-2 pt-2 border-t border-border">
-            {languages.map((lang) => (
-              <button
-                key={lang.code}
-                onClick={() => { i18n.changeLanguage(lang.code); setMobileOpen(false); }}
-                className={`px-3 py-1 text-sm border-2 ${i18n.language === lang.code ? "border-primary bg-primary/10" : "border-border"}`}
-              >
-                {lang.flag}
-              </button>
-            ))}
-          </div>
-          <div className="flex gap-2">
-            <Link to="/login" className="flex-1"><Button variant="outline" className="w-full">{t("nav.login")}</Button></Link>
-            <Link to="/signup" className="flex-1"><Button className="w-full">{t("nav.getStarted")}</Button></Link>
-          </div>
-        </div>
-      )}
-    </nav>
-  );
+                    <Link
+                        to="/login"
+                        className="hidden sm:inline-flex bg-white text-black text-xs font-bold tracking-wider uppercase px-5 py-2.5 rounded-full hover:bg-brand-emerald hover:text-black transition-all duration-300"
+                    >
+                        {t("landing.nav.cta")}
+                    </Link>
+                </div>
+            </div>
+        </nav>
+    );
 }

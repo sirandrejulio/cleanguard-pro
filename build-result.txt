@@ -1,0 +1,82 @@
+FAIL
+STDOUT:
+vite v5.4.19 building for production...
+transforming...
+✓ 2940 modules transformed.
+
+STDERR:
+Browserslist: browsers data (caniuse-lite) is 8 months old. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+
+warn - The class `duration-[1.5s]` is ambiguous and matches multiple utilities.
+warn - If this is content and not a class, replace it with `duration-&lsqb;1.5s&rsqb;` to silence this warning.
+
+warn - The class `duration-[1s]` is ambiguous and matches multiple utilities.
+warn - If this is content and not a class, replace it with `duration-&lsqb;1s&rsqb;` to silence this warning.
+[vite:css] @import must precede all other statements (besides @charset or empty @layer)
+4  |  
+5  |  /* Import Fonts: Inter Tight, Inter, JetBrains Mono */
+6  |  @import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap');
+   |  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+7  |  
+8  |  @layer base {
+x Build failed in 9.20s
+error during build:
+src/pages/Landing.tsx (1:9): "Navbar" is not exported by "src/components/landing/Navbar.tsx", imported by "src/pages/Landing.tsx".
+file: C:/Users/Sir. André/Desktop/Clean Guard Pro/cleanguard-pro/src/pages/Landing.tsx:1:9
+
+1: import { Navbar } from "@/components/landing/Navbar";
+            ^
+2: import { Hero } from "@/components/landing/Hero";
+3: import { SocialProof } from "@/components/landing/SocialProof";
+
+    at getRollupError (file:///C:/Users/Sir.%20Andr%C3%A9/Desktop/Clean%20Guard%20Pro/cleanguard-pro/node_modules/rollup/dist/es/shared/parseAst.js:395:41)
+    at error (file:///C:/Users/Sir.%20Andr%C3%A9/Desktop/Clean%20Guard%20Pro/cleanguard-pro/node_modules/rollup/dist/es/shared/parseAst.js:391:42)
+    at Module.error (file:///C:/Users/Sir.%20Andr%C3%A9/Desktop/Clean%20Guard%20Pro/cleanguard-pro/node_modules/rollup/dist/es/shared/node-entry.js:15535:16)
+    at Module.traceVariable (file:///C:/Users/Sir.%20Andr%C3%A9/Desktop/Clean%20Guard%20Pro/cleanguard-pro/node_modules/rollup/dist/es/shared/node-entry.js:15984:29)
+    at ModuleScope.findVariable (file:///C:/Users/Sir.%20Andr%C3%A9/Desktop/Clean%20Guard%20Pro/cleanguard-pro/node_modules/rollup/dist/es/shared/node-entry.js:13770:39)
+    at ReturnValueScope.findVariable (file:///C:/Users/Sir.%20Andr%C3%A9/Desktop/Clean%20Guard%20Pro/cleanguard-pro/node_modules/rollup/dist/es/shared/node-entry.js:5252:38)
+    at FunctionBodyScope.findVariable (file:///C:/Users/Sir.%20Andr%C3%A9/Desktop/Clean%20Guard%20Pro/cleanguard-pro/node_modules/rollup/dist/es/shared/node-entry.js:5252:38)
+    at Identifier.bind (file:///C:/Users/Sir.%20Andr%C3%A9/Desktop/Clean%20Guard%20Pro/cleanguard-pro/node_modules/rollup/dist/es/shared/node-entry.js:5035:40)
+    at CallExpression.bind (file:///C:/Users/Sir.%20Andr%C3%A9/Desktop/Clean%20Guard%20Pro/cleanguard-pro/node_modules/rollup/dist/es/shared/node-entry.js:2851:28)
+    at CallExpression.bind (file:///C:/Users/Sir.%20Andr%C3%A9/Desktop/Clean%20Guard%20Pro/cleanguard-pro/node_modules/rollup/dist/es/shared/node-entry.js:11235:15)
+
+MSG:
+Command failed: npx vite build
+Browserslist: browsers data (caniuse-lite) is 8 months old. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+
+warn - The class `duration-[1.5s]` is ambiguous and matches multiple utilities.
+warn - If this is content and not a class, replace it with `duration-&lsqb;1.5s&rsqb;` to silence this warning.
+
+warn - The class `duration-[1s]` is ambiguous and matches multiple utilities.
+warn - If this is content and not a class, replace it with `duration-&lsqb;1s&rsqb;` to silence this warning.
+[vite:css] @import must precede all other statements (besides @charset or empty @layer)
+4  |  
+5  |  /* Import Fonts: Inter Tight, Inter, JetBrains Mono */
+6  |  @import url('https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500&display=swap');
+   |  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+7  |  
+8  |  @layer base {
+x Build failed in 9.20s
+error during build:
+src/pages/Landing.tsx (1:9): "Navbar" is not exported by "src/components/landing/Navbar.tsx", imported by "src/pages/Landing.tsx".
+file: C:/Users/Sir. André/Desktop/Clean Guard Pro/cleanguard-pro/src/pages/Landing.tsx:1:9
+
+1: import { Navbar } from "@/components/landing/Navbar";
+            ^
+2: import { Hero } from "@/components/landing/Hero";
+3: import { SocialProof } from "@/components/landing/SocialProof";
+
+    at getRollupError (file:///C:/Users/Sir.%20Andr%C3%A9/Desktop/Clean%20Guard%20Pro/cleanguard-pro/node_modules/rollup/dist/es/shared/parseAst.js:395:41)
+    at error (file:///C:/Users/Sir.%20Andr%C3%A9/Desktop/Clean%20Guard%20Pro/cleanguard-pro/node_modules/rollup/dist/es/shared/parseAst.js:391:42)
+    at Module.error (file:///C:/Users/Sir.%20Andr%C3%A9/Desktop/Clean%20Guard%20Pro/cleanguard-pro/node_modules/rollup/dist/es/shared/node-entry.js:15535:16)
+    at Module.traceVariable (file:///C:/Users/Sir.%20Andr%C3%A9/Desktop/Clean%20Guard%20Pro/cleanguard-pro/node_modules/rollup/dist/es/shared/node-entry.js:15984:29)
+    at ModuleScope.findVariable (file:///C:/Users/Sir.%20Andr%C3%A9/Desktop/Clean%20Guard%20Pro/cleanguard-pro/node_modules/rollup/dist/es/shared/node-entry.js:13770:39)
+    at ReturnValueScope.findVariable (file:///C:/Users/Sir.%20Andr%C3%A9/Desktop/Clean%20Guard%20Pro/cleanguard-pro/node_modules/rollup/dist/es/shared/node-entry.js:5252:38)
+    at FunctionBodyScope.findVariable (file:///C:/Users/Sir.%20Andr%C3%A9/Desktop/Clean%20Guard%20Pro/cleanguard-pro/node_modules/rollup/dist/es/shared/node-entry.js:5252:38)
+    at Identifier.bind (file:///C:/Users/Sir.%20Andr%C3%A9/Desktop/Clean%20Guard%20Pro/cleanguard-pro/node_modules/rollup/dist/es/shared/node-entry.js:5035:40)
+    at CallExpression.bind (file:///C:/Users/Sir.%20Andr%C3%A9/Desktop/Clean%20Guard%20Pro/cleanguard-pro/node_modules/rollup/dist/es/shared/node-entry.js:2851:28)
+    at CallExpression.bind (file:///C:/Users/Sir.%20Andr%C3%A9/Desktop/Clean%20Guard%20Pro/cleanguard-pro/node_modules/rollup/dist/es/shared/node-entry.js:11235:15)

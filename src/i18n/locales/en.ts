@@ -8,6 +8,133 @@ const en = {
     getStarted: "Start Free Trial",
   },
 
+  // Landing Page (STRATA Design)
+  landing: {
+    nav: {
+      links: ["Protection", "Use Cases", "Plans", "Questions"],
+      cta: "Access System",
+    },
+    hero: {
+      tag: "// INTELLIGENT OPERATIONAL MANAGEMENT V.2.0",
+      titleLine1: "PROTECT YOUR",
+      titleLine2: "CLEANING BUSINESS.",
+      description: "Your employee did the job, but the client says they didn't? With Clean Guard Pro, every cleaning is recorded with video, GPS and exact time. Stop losing money on unfair disputes.",
+      ctaPrimary: "Get Started Now",
+      ctaSecondary: "How Does It Work?",
+    },
+    socialProof: {
+      label: "PROTECTED_CLIENTS:",
+      entities: [
+        { name: "TOTAL CLEAN", tag: "Protected" },
+        { name: "MASTER CLEAN", tag: "+98% Satisfaction" },
+        { name: "NOVA BRIGHT GROUP", tag: "Monitoring" },
+        { name: "CLEAN SERVICE", tag: "Risk: Zero" },
+        { name: "TOP FACILITIES", tag: "Active: 24/7" },
+        { name: "SHINE & CO", tag: "Alert: None" },
+      ],
+    },
+    modules: {
+      title: "HOW IT WORKS",
+      subtitle: "SHIELD_SYSTEM_V.01",
+      cards: [
+        {
+          title: "Digital Evidence",
+          description: "Record the service with video + GPS + exact time. When the client complains, you show the proof. Simple as that.",
+          meta: ["GPS+CAM", "REAL-TIME"],
+        },
+        {
+          title: "Route Tracking",
+          description: "See where each team is, at any time. No surprises.",
+        },
+        {
+          title: "Operational Performance",
+          description: "How long does each service take? Who performs best? Find out with real data.",
+        },
+        {
+          title: "Smart Alert",
+          description: "If a team didn't arrive at the location, you know before the client calls.",
+        },
+      ],
+    },
+    showcase: {
+      title: "REAL RESULTS",
+      subtitle: "Companies that have already eliminated unfair disputes with Clean Guard Pro.",
+      cta: "View All Cases",
+      projects: [
+        { title: "Corporate Tower South", stat: "100% Covered", tags: ["CORPORATE", "RISK: ZERO"] },
+        { title: "Logistics Warehouse A", stat: "-15% Costs", tags: ["INDUSTRIAL", "EFFICIENCY: HIGH"] },
+        { title: "East Shopping Center", stat: "No Incidents", tags: ["RETAIL", "24/7 ACTIVE"] },
+      ],
+    },
+    pricing: {
+      toggleMonthly: "Monthly",
+      toggleAnnual: "Annual",
+      subtitle: "Choose the ideal plan for the size of your operation. No setup fee.",
+      recommended: "Most Popular",
+      plans: [
+        {
+          name: "STARTER",
+          price: "$99",
+          period: "/month",
+          features: ["Up to 5 employees", "Photo + GPS records", "Basic reports by email"],
+          cta: "Start Free",
+        },
+        {
+          name: "PROFESSIONAL",
+          price: "$249",
+          period: "/month",
+          features: ["Up to 30 employees", "Video + GPS + Timestamp", "Real-time alerts", "Complete dashboard", "Priority support"],
+          cta: "Try 14 Days Free",
+          highlight: true,
+        },
+        {
+          name: "ENTERPRISE",
+          price: "Custom",
+          period: "",
+          features: ["Unlimited employees", "White-label branding", "Full API", "Dedicated implementation"],
+          cta: "Talk to Sales",
+        },
+      ],
+    },
+    faq: {
+      title: "FREQUENTLY ASKED QUESTIONS",
+      items: [
+        {
+          q: "How does digital evidence work?",
+          a: "The employee records a quick video on their phone at the start and end of the service. The system automatically adds exact location, date and time. If the client disputes, you have the proof in hand.",
+        },
+        {
+          q: "Do I need to buy special equipment?",
+          a: "No. Clean Guard Pro works on the phone your employees already use. Android or iPhone, just download the app.",
+        },
+        {
+          q: "What if the employee doesn't have internet on site?",
+          a: "The system saves everything offline and sends automatically when the phone finds Wi-Fi or mobile data signal.",
+        },
+        {
+          q: "How long does it take to start using?",
+          a: "Less than 15 minutes. Register your company, invite your employees and they can start recording services the same day.",
+        },
+        {
+          q: "Can the data be used legally?",
+          a: "Yes. Records include verifiable GPS metadata and timestamps that are accepted as evidence in labor and commercial lawsuits.",
+        },
+      ],
+    },
+    footer: {
+      description: "Legal and operational protection for cleaning and facilities companies.",
+      platform: "[Platform]",
+      platformLinks: ["Digital Evidence", "GPS Tracking", "Dashboard", "Plans"],
+      company: "[Company]",
+      companyLinks: ["About Us", "Blog", "Contact"],
+      newsletter: "Don't miss updates",
+      emailPlaceholder: "Your corporate email",
+      subscribe: "Subscribe",
+      copyright: "© 2026 Clean Guard Pro. All rights reserved.",
+      tagline: "Legal and Operational Protection for Facilities.",
+    },
+  },
+
   // Hero
   hero: {
     badge: "The #1 Protection Platform for Cleaning Businesses",
