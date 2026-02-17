@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
@@ -7,11 +8,11 @@ import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 
 export default function TeamLeadDashboard() {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const navigate = useNavigate();
   const today = format(new Date(), "yyyy-MM-dd");
 
-  // Get user's team
   const { data: myTeam } = useQuery({
     queryKey: ["teamlead-my-team", user?.id],
     queryFn: async () => {
@@ -30,7 +31,6 @@ export default function TeamLeadDashboard() {
 
   const teamId = (myTeam as any)?.teams?.id;
 
-  // Team jobs today
   const { data: teamJobs = [] } = useQuery({
     queryKey: ["teamlead-jobs", today, teamId],
     queryFn: async () => {
@@ -46,7 +46,6 @@ export default function TeamLeadDashboard() {
     enabled: !!teamId,
   });
 
-  // Team members
   const { data: members = [] } = useQuery({
     queryKey: ["teamlead-members", teamId],
     queryFn: async () => {
@@ -65,10 +64,10 @@ export default function TeamLeadDashboard() {
   const teamName = (myTeam as any)?.teams?.name || "My Team";
 
   const stats = [
-    { label: "TEAM JOBS", value: teamJobs.length, sub: "Today", icon: Briefcase, color: "text-primary", bg: "bg-primary/10" },
-    { label: "MEMBERS", value: members.length, sub: teamName, icon: Users, color: "text-blue-500", bg: "bg-blue-500/10" },
-    { label: "IN PROGRESS", value: inProgress, sub: "Active now", icon: Clock, color: "text-amber-500", bg: "bg-amber-500/10" },
-    { label: "COMPLETED", value: completed, sub: "Today", icon: CheckCircle, color: "text-emerald-500", bg: "bg-emerald-500/10" },
+    { label: t("roleDashboards.teamLead.teamJobs"), value: teamJobs.length, sub: t("roleDashboards.teamLead.today"), icon: Briefcase, color: "text-primary", bg: "bg-primary/10" },
+    { label: t("roleDashboards.teamLead.members"), value: members.length, sub: teamName, icon: Users, color: "text-blue-500", bg: "bg-blue-500/10" },
+    { label: t("roleDashboards.teamLead.inProgress"), value: inProgress, sub: t("roleDashboards.teamLead.activeNow"), icon: Clock, color: "text-amber-500", bg: "bg-amber-500/10" },
+    { label: t("roleDashboards.teamLead.completedLabel"), value: completed, sub: t("roleDashboards.teamLead.today"), icon: CheckCircle, color: "text-emerald-500", bg: "bg-emerald-500/10" },
   ];
 
   const statusColors: Record<string, string> = {
@@ -81,8 +80,8 @@ export default function TeamLeadDashboard() {
   return (
     <div className="p-4 sm:p-6 lg:p-8 space-y-8 max-w-7xl">
       <div>
-        <h1 className="font-display text-2xl sm:text-3xl font-black">Team Lead — {teamName}</h1>
-        <p className="text-muted-foreground mt-1">Your team's performance & assignments</p>
+        <h1 className="font-display text-2xl sm:text-3xl font-black">{t("roleDashboards.teamLead.title")} — {teamName}</h1>
+        <p className="text-muted-foreground mt-1">{t("roleDashboards.teamLead.subtitle")}</p>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -102,12 +101,12 @@ export default function TeamLeadDashboard() {
         ))}
       </div>
 
-      {/* Team Jobs */}
+      {/* Jobs da equipe */}
       <div className="bg-card border-2 border-border">
         <div className="flex items-center justify-between p-5 border-b-2 border-border">
-          <h2 className="font-display font-bold text-lg">Team Jobs Today</h2>
+          <h2 className="font-display font-bold text-lg">{t("roleDashboards.teamLead.teamJobsList")}</h2>
           <Button variant="ghost" size="sm" className="text-primary font-semibold gap-1" onClick={() => navigate("/dashboard/jobs")}>
-            View All <ArrowRight className="w-4 h-4" />
+            {t("roleDashboards.teamLead.viewAll")} <ArrowRight className="w-4 h-4" />
           </Button>
         </div>
         <div className="divide-y divide-border">
@@ -126,15 +125,15 @@ export default function TeamLeadDashboard() {
             </div>
           ))}
           {teamJobs.length === 0 && (
-            <div className="p-8 text-center text-muted-foreground">No team jobs for today</div>
+            <div className="p-8 text-center text-muted-foreground">{t("roleDashboards.teamLead.noJobs")}</div>
           )}
         </div>
       </div>
 
-      {/* Team Members */}
+      {/* Membros da equipe */}
       <div className="bg-card border-2 border-border">
         <div className="p-5 border-b-2 border-border">
-          <h2 className="font-display font-bold text-lg">Team Members</h2>
+          <h2 className="font-display font-bold text-lg">{t("roleDashboards.teamLead.teamMembers")}</h2>
         </div>
         <div className="divide-y divide-border">
           {members.map((m: any) => (
@@ -147,12 +146,12 @@ export default function TeamLeadDashboard() {
                 <p className="text-sm text-muted-foreground truncate">{m.profiles?.email || "—"}</p>
               </div>
               {m.is_leader && (
-                <span className="text-xs font-bold uppercase px-2 py-1 bg-primary/10 text-primary">Leader</span>
+                <span className="text-xs font-bold uppercase px-2 py-1 bg-primary/10 text-primary">{t("roleDashboards.teamLead.leader")}</span>
               )}
             </div>
           ))}
           {members.length === 0 && (
-            <div className="p-8 text-center text-muted-foreground">No team members found</div>
+            <div className="p-8 text-center text-muted-foreground">{t("roleDashboards.teamLead.noMembers")}</div>
           )}
         </div>
       </div>

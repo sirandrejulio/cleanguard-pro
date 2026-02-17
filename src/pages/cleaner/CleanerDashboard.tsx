@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
@@ -9,11 +10,11 @@ import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 
 export default function CleanerDashboard() {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const navigate = useNavigate();
   const today = format(new Date(), "yyyy-MM-dd");
 
-  // My jobs today
   const { data: myJobs = [] } = useQuery({
     queryKey: ["cleaner-my-jobs", today, user?.id],
     queryFn: async () => {
@@ -29,7 +30,6 @@ export default function CleanerDashboard() {
     enabled: !!user?.id,
   });
 
-  // My timesheets today
   const { data: timesheets = [] } = useQuery({
     queryKey: ["cleaner-timesheets", today, user?.id],
     queryFn: async () => {
@@ -50,10 +50,10 @@ export default function CleanerDashboard() {
   const totalMinutes = timesheets.reduce((s, t) => s + (t.total_minutes || 0), 0);
 
   const stats = [
-    { label: "MY JOBS", value: myJobs.length, sub: "Today", icon: Briefcase, color: "text-primary", bg: "bg-primary/10" },
-    { label: "COMPLETED", value: completed, sub: `of ${myJobs.length}`, icon: CheckCircle, color: "text-emerald-500", bg: "bg-emerald-500/10" },
-    { label: "IN PROGRESS", value: inProgress, sub: "Active", icon: Clock, color: "text-amber-500", bg: "bg-amber-500/10" },
-    { label: "HOURS", value: `${(totalMinutes / 60).toFixed(1)}h`, sub: "Logged today", icon: Clock, color: "text-blue-500", bg: "bg-blue-500/10" },
+    { label: t("roleDashboards.cleaner.myJobs"), value: myJobs.length, sub: t("roleDashboards.cleaner.today"), icon: Briefcase, color: "text-primary", bg: "bg-primary/10" },
+    { label: t("roleDashboards.cleaner.completedLabel"), value: completed, sub: `of ${myJobs.length}`, icon: CheckCircle, color: "text-emerald-500", bg: "bg-emerald-500/10" },
+    { label: t("roleDashboards.cleaner.inProgress"), value: inProgress, sub: t("roleDashboards.cleaner.active"), icon: Clock, color: "text-amber-500", bg: "bg-amber-500/10" },
+    { label: t("roleDashboards.cleaner.hours"), value: `${(totalMinutes / 60).toFixed(1)}h`, sub: t("roleDashboards.cleaner.loggedToday"), icon: Clock, color: "text-blue-500", bg: "bg-blue-500/10" },
   ];
 
   const statusColors: Record<string, string> = {
@@ -66,17 +66,17 @@ export default function CleanerDashboard() {
   return (
     <div className="p-4 sm:p-6 lg:p-8 space-y-8 max-w-7xl">
       <div>
-        <h1 className="font-display text-2xl sm:text-3xl font-black">My Dashboard</h1>
-        <p className="text-muted-foreground mt-1">Your jobs, check-ins & evidence</p>
+        <h1 className="font-display text-2xl sm:text-3xl font-black">{t("roleDashboards.cleaner.title")}</h1>
+        <p className="text-muted-foreground mt-1">{t("roleDashboards.cleaner.subtitle")}</p>
       </div>
 
-      {/* Quick Actions */}
+      {/* Ações rápidas */}
       <div className="flex flex-wrap gap-3">
         <Button variant="outline" className="border-2 font-semibold gap-2 h-10" onClick={() => navigate("/dashboard/shield/evidence")}>
-          <Camera className="w-4 h-4" /> Upload Evidence
+          <Camera className="w-4 h-4" /> {t("roleDashboards.cleaner.uploadEvidence")}
         </Button>
         <Button variant="outline" className="border-2 font-semibold gap-2 h-10" onClick={() => navigate("/dashboard/shield/timesheets")}>
-          <Navigation className="w-4 h-4" /> Check-In GPS
+          <Navigation className="w-4 h-4" /> {t("roleDashboards.cleaner.checkInGps")}
         </Button>
       </div>
 
@@ -97,10 +97,10 @@ export default function CleanerDashboard() {
         ))}
       </div>
 
-      {/* Next Job */}
+      {/* Próximo job */}
       {nextJob && (
         <div className="bg-card border-2 border-primary p-5 space-y-3">
-          <span className="text-xs font-bold uppercase tracking-widest text-primary">NEXT JOB</span>
+          <span className="text-xs font-bold uppercase tracking-widest text-primary">{t("roleDashboards.cleaner.nextJob")}</span>
           <div className="flex items-center gap-4">
             <div className="w-12 h-12 bg-primary/10 flex items-center justify-center shrink-0">
               <MapPin className="w-6 h-6 text-primary" />
@@ -112,16 +112,16 @@ export default function CleanerDashboard() {
               </p>
             </div>
             <Button className="font-semibold gap-2" onClick={() => navigate("/dashboard/shield/timesheets")}>
-              <Navigation className="w-4 h-4" /> Start
+              <Navigation className="w-4 h-4" /> {t("roleDashboards.cleaner.start")}
             </Button>
           </div>
         </div>
       )}
 
-      {/* My Jobs */}
+      {/* Meus jobs */}
       <div className="bg-card border-2 border-border">
         <div className="p-5 border-b-2 border-border">
-          <h2 className="font-display font-bold text-lg">My Jobs Today</h2>
+          <h2 className="font-display font-bold text-lg">{t("roleDashboards.cleaner.myJobsList")}</h2>
         </div>
         <div className="divide-y divide-border">
           {myJobs.map((job) => (
@@ -141,7 +141,7 @@ export default function CleanerDashboard() {
             </div>
           ))}
           {myJobs.length === 0 && (
-            <div className="p-8 text-center text-muted-foreground">No jobs assigned for today</div>
+            <div className="p-8 text-center text-muted-foreground">{t("roleDashboards.cleaner.noJobs")}</div>
           )}
         </div>
       </div>
