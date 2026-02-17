@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
+import { motion } from "framer-motion";
 
-// Seção Hero da landing page com grid isométrico e textos traduzidos via i18n
+// Seção Hero da landing page com grid isométrico e animações de entrada
 export default function Hero() {
     const { t } = useTranslation();
 
@@ -19,24 +20,44 @@ export default function Hero() {
 
             <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
                 {/* Tag mono */}
-                <p className="font-mono text-[11px] tracking-[0.2em] text-brand-emerald mb-8 uppercase">
+                <motion.p
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
+                    className="font-mono text-[11px] tracking-[0.2em] text-brand-emerald mb-8 uppercase"
+                >
                     {t("landing.hero.tag")}
-                </p>
+                </motion.p>
 
                 {/* Título gigante */}
-                <h1 className="font-display font-black text-hero leading-[0.9] tracking-tighter text-white mb-6">
+                <motion.h1
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.4 }}
+                    className="font-display font-black text-hero leading-[0.9] tracking-tighter text-white mb-6"
+                >
                     {t("landing.hero.titleLine1")}
                     <br />
                     <span className="text-brand-emerald">{t("landing.hero.titleLine2")}</span>
-                </h1>
+                </motion.h1>
 
                 {/* Descrição persuasiva */}
-                <p className="max-w-2xl mx-auto text-lg text-zinc-400 leading-relaxed mb-10">
+                <motion.p
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.6 }}
+                    className="max-w-2xl mx-auto text-lg text-zinc-400 leading-relaxed mb-10"
+                >
                     {t("landing.hero.description")}
-                </p>
+                </motion.p>
 
                 {/* CTAs */}
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <motion.div
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.8 }}
+                    className="flex flex-col sm:flex-row items-center justify-center gap-4"
+                >
                     <a
                         href="#section-2"
                         className="bg-brand-emerald text-black font-bold text-sm tracking-wider uppercase px-8 py-4 rounded-full hover:shadow-[0_0_30px_rgba(16,185,129,0.4)] transition-all duration-300"
@@ -49,7 +70,7 @@ export default function Hero() {
                     >
                         {t("landing.hero.ctaSecondary")}
                     </a>
-                </div>
+                </motion.div>
             </div>
         </section>
     );
