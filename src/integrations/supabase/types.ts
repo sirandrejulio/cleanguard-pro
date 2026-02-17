@@ -903,6 +903,89 @@ export type Database = {
         }
         Relationships: []
       }
+      waitlist_entries: {
+        Row: {
+          company_id: string
+          created_at: string
+          customer_id: string
+          filled_at: string | null
+          filled_job_id: string | null
+          id: string
+          notes: string | null
+          notified_at: string | null
+          preferred_date: string | null
+          preferred_service_type: string
+          preferred_time_end: string | null
+          preferred_time_start: string | null
+          priority: number | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          company_id: string
+          created_at?: string
+          customer_id: string
+          filled_at?: string | null
+          filled_job_id?: string | null
+          id?: string
+          notes?: string | null
+          notified_at?: string | null
+          preferred_date?: string | null
+          preferred_service_type?: string
+          preferred_time_end?: string | null
+          preferred_time_start?: string | null
+          priority?: number | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          company_id?: string
+          created_at?: string
+          customer_id?: string
+          filled_at?: string | null
+          filled_job_id?: string | null
+          id?: string
+          notes?: string | null
+          notified_at?: string | null
+          preferred_date?: string | null
+          preferred_service_type?: string
+          preferred_time_end?: string | null
+          preferred_time_start?: string | null
+          priority?: number | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "waitlist_entries_company_id_fkey"
+            columns: ["company_id"]
+            isOneToOne: false
+            referencedRelation: "companies"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "waitlist_entries_customer_id_fkey"
+            columns: ["customer_id"]
+            isOneToOne: false
+            referencedRelation: "customers"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "waitlist_entries_filled_job_id_fkey"
+            columns: ["filled_job_id"]
+            isOneToOne: false
+            referencedRelation: "jobs"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "waitlist_entries_filled_job_id_fkey"
+            columns: ["filled_job_id"]
+            isOneToOne: false
+            referencedRelation: "v_jobs_dashboard"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       v_jobs_dashboard: {
