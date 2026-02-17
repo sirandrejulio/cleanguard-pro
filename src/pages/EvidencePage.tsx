@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Search, Upload, Video, Image, MapPin, Calendar, MoreHorizontal, Trash2 } from "lucide-react";
+import { Search, Upload, Video, Image, MapPin, Calendar, MoreHorizontal, Trash2, Crosshair } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
 import { useEvidence, useCreateEvidence, useDeleteEvidence } from "@/hooks/useEvidence";
@@ -28,6 +29,9 @@ export default function EvidencePage() {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [saving, setSaving] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [deleteTarget, setDeleteTarget] = useState<any>(null);
+  const [gpsCoords, setGpsCoords] = useState<{ lat: number; lng: number } | null>(null);
+  const [gpsStatus, setGpsStatus] = useState<"idle" | "capturing" | "done" | "failed">("idle");
 
   const [form, setForm] = useState({
     job_id: "",
@@ -36,12 +40,36 @@ export default function EvidencePage() {
     caption: "",
   });
 
-  const resetForm = () => setForm({ job_id: "", file_url: "", file_type: "photo", caption: "" });
+  const resetForm = () => {
+    setForm({ job_id: "", file_url: "", file_type: "photo", caption: "" });
+    setGpsCoords(null);
+    setGpsStatus("idle");
+  };
+
+  const captureGPS = () => {
+    if (!navigator.geolocation) {
+      setGpsStatus("failed");
+      return;
+    }
+    setGpsStatus("capturing");
+    navigator.geolocation.getCurrentPosition(
+      (pos) => {
+        setGpsCoords({ lat: pos.coords.latitude, lng: pos.coords.longitude });
+        setGpsStatus("done");
+      },
+      () => setGpsStatus("failed"),
+      { enableHighAccuracy: true, timeout: 15000 }
+    );
+  };
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
     setUploading(true);
+
+    // Auto-capture GPS when uploading
+    if (gpsStatus === "idle") captureGPS();
+
     try {
       const ext = file.name.split(".").pop();
       const path = `${user?.id}/${Date.now()}.${ext}`;
@@ -74,6 +102,8 @@ export default function EvidencePage() {
         file_url: form.file_url,
         file_type: form.file_type,
         caption: form.caption || undefined,
+        latitude: gpsCoords?.lat,
+        longitude: gpsCoords?.lng,
       });
       toast({ title: t("shield.evidence.success.created") });
       resetForm();
@@ -84,13 +114,15 @@ export default function EvidencePage() {
     setSaving(false);
   };
 
-  const handleDelete = async (id: string) => {
+  const handleDelete = async () => {
+    if (!deleteTarget) return;
     try {
-      await deleteEvidence.mutateAsync(id);
+      await deleteEvidence.mutateAsync(deleteTarget.id);
       toast({ title: t("shield.evidence.success.deleted") });
     } catch {
       toast({ variant: "destructive", title: t("shield.evidence.error") });
     }
+    setDeleteTarget(null);
   };
 
   const filtered = evidence?.filter((ev: any) =>
@@ -106,7 +138,7 @@ export default function EvidencePage() {
           <h1 className="font-display text-2xl sm:text-3xl font-black">{t("shield.evidence.title")}</h1>
           <p className="text-muted-foreground mt-1 text-sm sm:text-base">{t("shield.evidence.subtitle")}</p>
         </div>
-        <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+        <Dialog open={dialogOpen} onOpenChange={(o) => { setDialogOpen(o); if (!o) resetForm(); }}>
           <DialogTrigger asChild>
             <Button className="font-semibold gap-2">
               <Upload className="w-4 h-4" />
@@ -137,12 +169,33 @@ export default function EvidencePage() {
                   <p className="text-xs text-emerald-600 font-semibold">{t("shield.evidence.fileReady")}</p>
                 )}
               </div>
+
+              {/* GPS Status */}
+              <div className="flex items-center gap-3 p-3 bg-secondary/50 border border-border">
+                <Crosshair className={`w-4 h-4 shrink-0 ${gpsStatus === "done" ? "text-emerald-600" : gpsStatus === "failed" ? "text-destructive" : "text-muted-foreground"}`} />
+                <div className="flex-1 text-xs">
+                  {gpsStatus === "idle" && <span className="text-muted-foreground">GPS será capturado automaticamente</span>}
+                  {gpsStatus === "capturing" && <span className="text-amber-600 font-semibold animate-pulse">Capturando GPS...</span>}
+                  {gpsStatus === "done" && gpsCoords && (
+                    <span className="text-emerald-600 font-semibold">
+                      GPS: {gpsCoords.lat.toFixed(6)}, {gpsCoords.lng.toFixed(6)}
+                    </span>
+                  )}
+                  {gpsStatus === "failed" && <span className="text-destructive">GPS indisponível</span>}
+                </div>
+                {gpsStatus !== "capturing" && (
+                  <Button type="button" variant="ghost" size="sm" onClick={captureGPS} className="text-xs h-7">
+                    {gpsStatus === "done" ? "Recapturar" : "Capturar GPS"}
+                  </Button>
+                )}
+              </div>
+
               <div className="space-y-2">
                 <Label className="font-semibold text-xs uppercase tracking-wider">{t("shield.evidence.caption")}</Label>
                 <Textarea value={form.caption} onChange={(e) => setForm({ ...form, caption: e.target.value })} className="border-2" rows={2} />
               </div>
               <div className="flex gap-3 pt-2">
-                <Button type="button" variant="outline" className="flex-1 border-2" onClick={() => setDialogOpen(false)}>
+                <Button type="button" variant="outline" className="flex-1 border-2" onClick={() => { setDialogOpen(false); resetForm(); }}>
                   {t("common.cancel")}
                 </Button>
                 <Button type="submit" className="flex-1 font-semibold" disabled={saving || !form.job_id || !form.file_url}>
@@ -196,6 +249,11 @@ export default function EvidencePage() {
                   {ev.file_type === "video" ? <Video className="w-3 h-3 inline mr-1" /> : <Image className="w-3 h-3 inline mr-1" />}
                   {ev.file_type}
                 </span>
+                {ev.latitude && (
+                  <span className="absolute top-2 right-2 bg-emerald-600/90 text-white px-2 py-0.5 text-[10px] font-bold uppercase tracking-widest flex items-center gap-1">
+                    <MapPin className="w-3 h-3" />GPS ✓
+                  </span>
+                )}
               </div>
               <div className="p-4 space-y-2">
                 <div className="flex items-center justify-between">
@@ -205,7 +263,7 @@ export default function EvidencePage() {
                       <Button variant="ghost" size="icon" className="h-7 w-7"><MoreHorizontal className="w-4 h-4" /></Button>
                     </DropdownMenuTrigger>
                     <DropdownMenuContent align="end">
-                      <DropdownMenuItem onClick={() => handleDelete(ev.id)} className="text-destructive focus:text-destructive">
+                      <DropdownMenuItem onClick={() => setDeleteTarget(ev)} className="text-destructive focus:text-destructive">
                         <Trash2 className="w-4 h-4 mr-2" />{t("customers.delete")}
                       </DropdownMenuItem>
                     </DropdownMenuContent>
@@ -214,13 +272,35 @@ export default function EvidencePage() {
                 {ev.caption && <p className="text-sm truncate">{ev.caption}</p>}
                 <div className="flex items-center gap-3 text-xs text-muted-foreground">
                   <span className="flex items-center gap-1"><Calendar className="w-3 h-3" />{new Date(ev.created_at).toLocaleDateString()}</span>
-                  {ev.latitude && <span className="flex items-center gap-1"><MapPin className="w-3 h-3" />GPS</span>}
+                  {ev.latitude && (
+                    <span className="flex items-center gap-1 text-emerald-600 font-semibold">
+                      <MapPin className="w-3 h-3" />{ev.latitude.toFixed(4)}, {ev.longitude.toFixed(4)}
+                    </span>
+                  )}
                 </div>
               </div>
             </div>
           ))}
         </div>
       )}
+
+      {/* Delete confirmation */}
+      <AlertDialog open={!!deleteTarget} onOpenChange={(o) => !o && setDeleteTarget(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Delete evidence?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This action cannot be undone. The file will be permanently removed.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>{t("common.cancel")}</AlertDialogCancel>
+            <AlertDialogAction onClick={handleDelete} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
+              {t("customers.delete")}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }
