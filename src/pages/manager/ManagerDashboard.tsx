@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/hooks/useAuth";
@@ -7,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { format } from "date-fns";
 
 export default function ManagerDashboard() {
+  const { t } = useTranslation();
   const { user } = useAuth();
   const navigate = useNavigate();
   const today = format(new Date(), "yyyy-MM-dd");
@@ -43,10 +45,10 @@ export default function ManagerDashboard() {
   const inProgress = todayJobs.filter((j) => j.status === "in_progress").length;
 
   const stats = [
-    { label: "TODAY'S JOBS", value: todayJobs.length, sub: `${completed} completed`, icon: Briefcase, color: "text-primary", bg: "bg-primary/10" },
-    { label: "ACTIVE TEAMS", value: teams.length, sub: "Managing", icon: Users, color: "text-blue-500", bg: "bg-blue-500/10" },
-    { label: "IN PROGRESS", value: inProgress, sub: "Right now", icon: TrendingUp, color: "text-amber-500", bg: "bg-amber-500/10" },
-    { label: "ROUTES TODAY", value: routes.length, sub: "Planned", icon: MapPin, color: "text-purple-500", bg: "bg-purple-500/10" },
+    { label: t("roleDashboards.manager.todayJobs"), value: todayJobs.length, sub: `${completed} ${t("roleDashboards.manager.completed")}`, icon: Briefcase, color: "text-primary", bg: "bg-primary/10" },
+    { label: t("roleDashboards.manager.activeTeams"), value: teams.length, sub: t("roleDashboards.manager.managing"), icon: Users, color: "text-blue-500", bg: "bg-blue-500/10" },
+    { label: t("roleDashboards.manager.inProgress"), value: inProgress, sub: t("roleDashboards.manager.rightNow"), icon: TrendingUp, color: "text-amber-500", bg: "bg-amber-500/10" },
+    { label: t("roleDashboards.manager.routesToday"), value: routes.length, sub: t("roleDashboards.manager.planned"), icon: MapPin, color: "text-purple-500", bg: "bg-purple-500/10" },
   ];
 
   const statusColors: Record<string, string> = {
@@ -59,8 +61,8 @@ export default function ManagerDashboard() {
   return (
     <div className="p-4 sm:p-6 lg:p-8 space-y-8 max-w-7xl">
       <div>
-        <h1 className="font-display text-2xl sm:text-3xl font-black">Operations Manager</h1>
-        <p className="text-muted-foreground mt-1">Multi-team oversight & job management</p>
+        <h1 className="font-display text-2xl sm:text-3xl font-black">{t("roleDashboards.manager.title")}</h1>
+        <p className="text-muted-foreground mt-1">{t("roleDashboards.manager.subtitle")}</p>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
@@ -80,12 +82,12 @@ export default function ManagerDashboard() {
         ))}
       </div>
 
-      {/* Today's jobs */}
+      {/* Serviços de hoje */}
       <div className="bg-card border-2 border-border">
         <div className="flex items-center justify-between p-5 border-b-2 border-border">
-          <h2 className="font-display font-bold text-lg">Today's Jobs</h2>
+          <h2 className="font-display font-bold text-lg">{t("roleDashboards.manager.todayJobsList")}</h2>
           <Button variant="ghost" size="sm" className="text-primary font-semibold gap-1" onClick={() => navigate("/dashboard/jobs")}>
-            View All <ArrowRight className="w-4 h-4" />
+            {t("roleDashboards.manager.viewAll")} <ArrowRight className="w-4 h-4" />
           </Button>
         </div>
         <div className="divide-y divide-border">
@@ -104,7 +106,7 @@ export default function ManagerDashboard() {
             </div>
           ))}
           {todayJobs.length === 0 && (
-            <div className="p-8 text-center text-muted-foreground">No jobs scheduled for today</div>
+            <div className="p-8 text-center text-muted-foreground">{t("roleDashboards.manager.noJobs")}</div>
           )}
         </div>
       </div>
