@@ -1,14 +1,15 @@
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Search, Plus, Briefcase, Calendar, DollarSign, MoreHorizontal, Trash2 } from "lucide-react";
+import { Search, Plus, Briefcase, Calendar, DollarSign, MoreHorizontal, Trash2, Pencil, ArrowRightCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuSub, DropdownMenuSubContent, DropdownMenuSubTrigger, DropdownMenuTrigger } from "@/components/ui/dropdown-menu";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/components/ui/alert-dialog";
 import { useToast } from "@/hooks/use-toast";
-import { useJobs, useCreateJob, useDeleteJob } from "@/hooks/useJobs";
+import { useJobs, useCreateJob, useUpdateJob, useDeleteJob } from "@/hooks/useJobs";
 import { useCustomers } from "@/hooks/useCustomers";
 import { useTeams } from "@/hooks/useTeams";
 import { supabase } from "@/integrations/supabase/client";
@@ -20,6 +21,19 @@ const STATUS_COLORS: Record<string, string> = {
   cancelled: "text-muted-foreground bg-muted",
 };
 
+const STATUS_TRANSITIONS: Record<string, string[]> = {
+  scheduled: ["in_progress", "cancelled"],
+  in_progress: ["completed", "cancelled"],
+  completed: ["archived"],
+  cancelled: ["scheduled"],
+};
+
+const emptyForm = {
+  customer_id: "", team_id: "", scheduled_date: "",
+  scheduled_time_start: "", scheduled_time_end: "",
+  service_type: "standard_clean", quoted_price: "", priority: "2", notes: "",
+};
+
 export default function JobsPage() {
   const { t } = useTranslation();
   const { toast } = useToast();
@@ -28,71 +42,101 @@ export default function JobsPage() {
   const { data: customers } = useCustomers();
   const { data: teams } = useTeams();
   const createJob = useCreateJob();
+  const updateJob = useUpdateJob();
   const deleteJob = useDeleteJob();
 
   const [search, setSearch] = useState("");
   const [dialogOpen, setDialogOpen] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [editingJob, setEditingJob] = useState<any>(null);
+  const [deleteTarget, setDeleteTarget] = useState<any>(null);
 
-  const [form, setForm] = useState({
-    customer_id: "",
-    team_id: "",
-    scheduled_date: "",
-    scheduled_time_start: "",
-    scheduled_time_end: "",
-    service_type: "standard_clean",
-    quoted_price: "",
-    priority: "2",
-    notes: "",
-  });
+  const [form, setForm] = useState(emptyForm);
 
-  const resetForm = () => setForm({
-    customer_id: "", team_id: "", scheduled_date: "",
-    scheduled_time_start: "", scheduled_time_end: "",
-    service_type: "standard_clean", quoted_price: "", priority: "2", notes: "",
-  });
+  const resetForm = () => { setForm(emptyForm); setEditingJob(null); };
+
+  const openEdit = (job: any) => {
+    setEditingJob(job);
+    setForm({
+      customer_id: job.customer_id,
+      team_id: job.team_id || "",
+      scheduled_date: job.scheduled_date,
+      scheduled_time_start: job.scheduled_time_start || "",
+      scheduled_time_end: job.scheduled_time_end || "",
+      service_type: job.service_type,
+      quoted_price: job.quoted_price?.toString() || "",
+      priority: job.priority?.toString() || "2",
+      notes: job.notes || "",
+    });
+    setDialogOpen(true);
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
 
     try {
-      const { data: profile } = await supabase.from("profiles").select("company_id").single();
-      if (!profile?.company_id) {
-        toast({ variant: "destructive", title: "Company not found" });
-        setSaving(false);
-        return;
+      if (editingJob) {
+        await updateJob.mutateAsync({
+          id: editingJob.id,
+          customer_id: form.customer_id,
+          team_id: form.team_id || null,
+          scheduled_date: form.scheduled_date,
+          scheduled_time_start: form.scheduled_time_start || null,
+          scheduled_time_end: form.scheduled_time_end || null,
+          service_type: form.service_type,
+          quoted_price: form.quoted_price ? parseFloat(form.quoted_price) : null,
+          priority: parseInt(form.priority),
+          notes: form.notes || null,
+        });
+        toast({ title: t("jobs.success.updated") });
+      } else {
+        const { data: profile } = await supabase.from("profiles").select("company_id").single();
+        if (!profile?.company_id) {
+          toast({ variant: "destructive", title: "Company not found" });
+          setSaving(false);
+          return;
+        }
+        await createJob.mutateAsync({
+          company_id: profile.company_id,
+          customer_id: form.customer_id,
+          team_id: form.team_id || null,
+          scheduled_date: form.scheduled_date,
+          scheduled_time_start: form.scheduled_time_start || null,
+          scheduled_time_end: form.scheduled_time_end || null,
+          service_type: form.service_type,
+          quoted_price: form.quoted_price ? parseFloat(form.quoted_price) : null,
+          priority: parseInt(form.priority),
+          notes: form.notes || null,
+          job_number: "",
+        });
+        toast({ title: t("jobs.success.created") });
       }
-
-      await createJob.mutateAsync({
-        company_id: profile.company_id,
-        customer_id: form.customer_id,
-        team_id: form.team_id || null,
-        scheduled_date: form.scheduled_date,
-        scheduled_time_start: form.scheduled_time_start || null,
-        scheduled_time_end: form.scheduled_time_end || null,
-        service_type: form.service_type,
-        quoted_price: form.quoted_price ? parseFloat(form.quoted_price) : null,
-        priority: parseInt(form.priority),
-        notes: form.notes || null,
-        job_number: "", // Será gerado pelo trigger
-      });
-
-      toast({ title: t("jobs.success.created") });
       resetForm();
       setDialogOpen(false);
     } catch {
-      toast({ variant: "destructive", title: "Error creating job" });
+      toast({ variant: "destructive", title: editingJob ? "Error updating job" : "Error creating job" });
     }
     setSaving(false);
   };
 
-  const handleDelete = async (id: string) => {
+  const handleDelete = async () => {
+    if (!deleteTarget) return;
     try {
-      await deleteJob.mutateAsync(id);
+      await deleteJob.mutateAsync(deleteTarget.id);
       toast({ title: t("jobs.success.deleted") });
     } catch {
       toast({ variant: "destructive", title: "Error deleting job" });
+    }
+    setDeleteTarget(null);
+  };
+
+  const handleStatusChange = async (id: string, newStatus: string) => {
+    try {
+      await updateJob.mutateAsync({ id, status: newStatus });
+      toast({ title: `Status updated to ${newStatus.replace("_", " ")}` });
+    } catch {
+      toast({ variant: "destructive", title: "Error updating status" });
     }
   };
 
@@ -111,7 +155,7 @@ export default function JobsPage() {
           <h1 className="font-display text-2xl sm:text-3xl font-black">{t("jobs.title")}</h1>
           <p className="text-muted-foreground mt-1 text-sm sm:text-base">{t("jobs.subtitle")}</p>
         </div>
-        <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
+        <Dialog open={dialogOpen} onOpenChange={(o) => { setDialogOpen(o); if (!o) resetForm(); }}>
           <DialogTrigger asChild>
             <Button className="font-semibold gap-2">
               <Plus className="w-4 h-4" />
@@ -120,7 +164,9 @@ export default function JobsPage() {
           </DialogTrigger>
           <DialogContent className="max-w-lg">
             <DialogHeader>
-              <DialogTitle className="font-display font-bold text-xl">{t("jobs.add")}</DialogTitle>
+              <DialogTitle className="font-display font-bold text-xl">
+                {editingJob ? t("jobs.edit") : t("jobs.add")}
+              </DialogTitle>
             </DialogHeader>
             <form onSubmit={handleSubmit} className="space-y-4 mt-2">
               <div className="space-y-2">
@@ -177,11 +223,11 @@ export default function JobsPage() {
                 </div>
               </div>
               <div className="flex gap-3 pt-2">
-                <Button type="button" variant="outline" className="flex-1 border-2" onClick={() => setDialogOpen(false)}>
+                <Button type="button" variant="outline" className="flex-1 border-2" onClick={() => { setDialogOpen(false); resetForm(); }}>
                   {t("common.cancel")}
                 </Button>
                 <Button type="submit" className="flex-1 font-semibold" disabled={saving || !form.customer_id}>
-                  {saving ? t("jobs.saving") : t("jobs.save")}
+                  {saving ? t("jobs.saving") : editingJob ? t("jobs.update") : t("jobs.save")}
                 </Button>
               </div>
             </form>
@@ -247,7 +293,26 @@ export default function JobsPage() {
                   <Button variant="ghost" size="icon" className="shrink-0"><MoreHorizontal className="w-4 h-4" /></Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end">
-                  <DropdownMenuItem onClick={() => handleDelete(job.id)} className="text-destructive focus:text-destructive">
+                  <DropdownMenuItem onClick={() => openEdit(job)}>
+                    <Pencil className="w-4 h-4 mr-2" />{t("jobs.edit")}
+                  </DropdownMenuItem>
+                  {STATUS_TRANSITIONS[job.status]?.length > 0 && (
+                    <DropdownMenuSub>
+                      <DropdownMenuSubTrigger>
+                        <ArrowRightCircle className="w-4 h-4 mr-2" />{t("jobs.changeStatus")}
+                      </DropdownMenuSubTrigger>
+                      <DropdownMenuSubContent>
+                        {STATUS_TRANSITIONS[job.status].map((s: string) => (
+                          <DropdownMenuItem key={s} onClick={() => handleStatusChange(job.id, s)}>
+                            <span className={`w-2 h-2 rounded-full mr-2 ${STATUS_COLORS[s]?.split(" ")[0]?.replace("text-", "bg-") || "bg-muted-foreground"}`} />
+                            {t(`jobs.statuses.${s}`)}
+                          </DropdownMenuItem>
+                        ))}
+                      </DropdownMenuSubContent>
+                    </DropdownMenuSub>
+                  )}
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={() => setDeleteTarget(job)} className="text-destructive focus:text-destructive">
                     <Trash2 className="w-4 h-4 mr-2" />{t("customers.delete")}
                   </DropdownMenuItem>
                 </DropdownMenuContent>
@@ -256,6 +321,24 @@ export default function JobsPage() {
           ))}
         </div>
       )}
+
+      {/* Delete confirmation */}
+      <AlertDialog open={!!deleteTarget} onOpenChange={(o) => !o && setDeleteTarget(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>{t("jobs.confirmDelete")}</AlertDialogTitle>
+            <AlertDialogDescription>
+              {t("jobs.confirmDeleteDesc", { number: deleteTarget?.job_number })}
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel>{t("common.cancel")}</AlertDialogCancel>
+            <AlertDialogAction onClick={handleDelete} className="bg-destructive text-destructive-foreground hover:bg-destructive/90">
+              {t("customers.delete")}
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }

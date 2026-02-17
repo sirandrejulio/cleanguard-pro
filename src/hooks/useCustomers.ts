@@ -35,6 +35,23 @@ export function useCreateCustomer() {
   });
 }
 
+export function useUpdateCustomer() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async ({ id, ...updates }: { id: string } & Partial<Customer>) => {
+      const { data, error } = await supabase
+        .from("customers")
+        .update(updates)
+        .eq("id", id)
+        .select()
+        .single();
+      if (error) throw error;
+      return data;
+    },
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["customers"] }),
+  });
+}
+
 export function useDeleteCustomer() {
   const qc = useQueryClient();
   return useMutation({

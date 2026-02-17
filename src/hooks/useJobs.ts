@@ -41,6 +41,23 @@ export function useCreateJob() {
   });
 }
 
+export function useUpdateJob() {
+  const qc = useQueryClient();
+  return useMutation({
+    mutationFn: async ({ id, ...updates }: { id: string; [key: string]: any }) => {
+      const { data, error } = await supabase
+        .from("jobs")
+        .update(updates)
+        .eq("id", id)
+        .select()
+        .single();
+      if (error) throw error;
+      return data;
+    },
+    onSuccess: () => qc.invalidateQueries({ queryKey: ["jobs"] }),
+  });
+}
+
 export function useDeleteJob() {
   const qc = useQueryClient();
   return useMutation({
