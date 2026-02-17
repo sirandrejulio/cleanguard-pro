@@ -1,7 +1,8 @@
 import { Check } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { motion } from "framer-motion";
 
-// Cards de preço minimalistas com destaque emerald no plano recomendado
+// Cards de preço com animações de scroll
 export default function Pricing() {
     const { t } = useTranslation();
     const plans = t("landing.pricing.plans", { returnObjects: true }) as Array<{
@@ -17,7 +18,13 @@ export default function Pricing() {
         <section id="section-2" className="py-24 px-6 bg-[#050505]">
             <div className="max-w-5xl mx-auto">
                 {/* Cabeçalho */}
-                <div className="text-center mb-16">
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ duration: 0.6 }}
+                    className="text-center mb-16"
+                >
                     <div className="inline-flex items-center gap-2 bg-white/5 rounded-full px-4 py-1.5 mb-6">
                         <span className="font-mono text-[10px] tracking-widest text-zinc-400 uppercase">
                             {t("landing.pricing.toggleMonthly")} / {t("landing.pricing.toggleAnnual")}
@@ -26,13 +33,17 @@ export default function Pricing() {
                     <p className="text-zinc-500 max-w-lg mx-auto">
                         {t("landing.pricing.subtitle")}
                     </p>
-                </div>
+                </motion.div>
 
                 {/* Grid de planos */}
                 <div className="grid md:grid-cols-3 gap-px bg-white/5 rounded-2xl overflow-hidden">
                     {plans.map((plan, i) => (
-                        <div
+                        <motion.div
                             key={i}
+                            initial={{ opacity: 0, y: 40 }}
+                            whileInView={{ opacity: 1, y: 0 }}
+                            viewport={{ once: true, margin: "-50px" }}
+                            transition={{ duration: 0.5, delay: i * 0.15 }}
                             className={`relative p-8 ${plan.highlight
                                 ? "bg-brand-emerald/5 shadow-[0_0_60px_rgba(16,185,129,0.08)]"
                                 : "bg-[#0A0A0A]"
@@ -69,7 +80,7 @@ export default function Pricing() {
                             >
                                 {plan.cta}
                             </button>
-                        </div>
+                        </motion.div>
                     ))}
                 </div>
             </div>

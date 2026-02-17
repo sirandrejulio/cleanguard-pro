@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { useEffect, useState } from "react";
 import { Sparkles, Home, Building2, Bath, Wind, Truck, Star } from "lucide-react";
+import { motion } from "framer-motion";
 
 import img1 from "@/assets/cleaning-1.jpg";
 import img2 from "@/assets/cleaning-2.jpg";
@@ -22,7 +23,6 @@ export default function ServiceGallery() {
   const { t } = useTranslation();
   const [activeIndex, setActiveIndex] = useState(0);
 
-  // Auto-rotate every 4 seconds
   useEffect(() => {
     const interval = setInterval(() => {
       setActiveIndex((prev) => (prev + 1) % services.length);
@@ -32,7 +32,6 @@ export default function ServiceGallery() {
 
   return (
     <section className="py-24 px-6 bg-[#050505] relative overflow-hidden">
-      {/* Subtle grid bg */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none"
         style={{
           backgroundImage: "linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)",
@@ -42,14 +41,20 @@ export default function ServiceGallery() {
 
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Header */}
-        <div className="mb-16">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-100px" }}
+          transition={{ duration: 0.6 }}
+          className="mb-16"
+        >
           <p className="font-mono text-[10px] tracking-[0.3em] text-zinc-600 mb-2 uppercase">
             {t("landing.gallery.subtitle")}
           </p>
           <h2 className="font-display font-black text-4xl md:text-5xl text-white tracking-tighter">
             {t("landing.gallery.title")}
           </h2>
-        </div>
+        </motion.div>
 
         {/* Cards Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/5">
@@ -58,8 +63,12 @@ export default function ServiceGallery() {
             const isActive = i === activeIndex;
 
             return (
-              <div
+              <motion.div
                 key={i}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-30px" }}
+                transition={{ duration: 0.5, delay: i * 0.08 }}
                 className="group relative bg-[#0A0A0A] overflow-hidden cursor-pointer"
                 onMouseEnter={() => setActiveIndex(i)}
                 style={{ transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)" }}
@@ -76,17 +85,11 @@ export default function ServiceGallery() {
                     }}
                     loading="lazy"
                   />
-
-                  {/* Gradient overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent" />
-
-                  {/* Active indicator - green line */}
                   <div
                     className="absolute top-0 left-0 h-[2px] bg-brand-emerald transition-all duration-700"
                     style={{ width: isActive ? "100%" : "0%" }}
                   />
-
-                  {/* Rotating glow on active */}
                   {isActive && (
                     <div className="absolute -top-20 -right-20 w-40 h-40 rounded-full bg-brand-emerald/10 blur-3xl animate-pulse" />
                   )}
@@ -94,7 +97,6 @@ export default function ServiceGallery() {
 
                 {/* Content */}
                 <div className="relative p-6 -mt-8 z-10">
-                  {/* Icon */}
                   <div
                     className="w-10 h-10 flex items-center justify-center mb-4 transition-all duration-500"
                     style={{
@@ -106,13 +108,9 @@ export default function ServiceGallery() {
                       style={{ color: isActive ? "#10B981" : "rgba(255,255,255,0.3)" }}
                     />
                   </div>
-
-                  {/* Title */}
                   <h3 className="font-display font-bold text-lg text-white mb-2 tracking-tight">
                     {t(service.titleKey)}
                   </h3>
-
-                  {/* Description */}
                   <p
                     className="text-sm leading-relaxed transition-all duration-500"
                     style={{
@@ -124,8 +122,6 @@ export default function ServiceGallery() {
                   >
                     {t(service.descKey)}
                   </p>
-
-                  {/* Rating stars - visible on active */}
                   <div
                     className="flex items-center gap-1 mt-3 transition-all duration-500"
                     style={{ opacity: isActive ? 1 : 0, transform: isActive ? "translateY(0)" : "translateY(8px)" }}
@@ -136,7 +132,7 @@ export default function ServiceGallery() {
                     <span className="font-mono text-[10px] text-zinc-500 ml-2">5.0</span>
                   </div>
                 </div>
-              </div>
+              </motion.div>
             );
           })}
         </div>

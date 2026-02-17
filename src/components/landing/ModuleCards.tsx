@@ -1,9 +1,10 @@
 import { useTranslation } from "react-i18next";
 import { Shield, MapPin, BarChart3, Bell } from "lucide-react";
+import { motion } from "framer-motion";
 
 const icons = [Shield, MapPin, BarChart3, Bell];
 
-// Cards de módulos com ícones dinâmicos e metadata tags
+// Cards de módulos com animações de scroll
 export default function ModuleCards() {
     const { t } = useTranslation();
     const cards = t("landing.modules.cards", { returnObjects: true }) as Array<{
@@ -16,38 +17,43 @@ export default function ModuleCards() {
         <section id="section-1" className="py-24 px-6 bg-[#050505]">
             <div className="max-w-6xl mx-auto">
                 {/* Cabeçalho */}
-                <div className="mb-16">
+                <motion.div
+                    initial={{ opacity: 0, y: 30 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    viewport={{ once: true, margin: "-100px" }}
+                    transition={{ duration: 0.6 }}
+                    className="mb-16"
+                >
                     <p className="font-mono text-[10px] tracking-[0.3em] text-zinc-600 mb-2">
                         {t("landing.modules.subtitle")}
                     </p>
                     <h2 className="font-display font-black text-4xl md:text-5xl text-white tracking-tighter">
                         {t("landing.modules.title")}
                     </h2>
-                </div>
+                </motion.div>
 
                 {/* Grid de cards */}
                 <div className="grid md:grid-cols-2 gap-px bg-white/5 rounded-2xl overflow-hidden">
                     {cards.map((card, i) => {
                         const Icon = icons[i] || Shield;
                         return (
-                            <div
+                            <motion.div
                                 key={i}
+                                initial={{ opacity: 0, y: 40 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true, margin: "-50px" }}
+                                transition={{ duration: 0.5, delay: i * 0.1 }}
                                 className="bg-[#0A0A0A] p-8 md:p-10 group hover:bg-white/[0.02] transition-colors duration-500"
                             >
-                                {/* Ícone */}
                                 <div className="w-10 h-10 flex items-center justify-center bg-brand-emerald/10 rounded-lg mb-6 group-hover:bg-brand-emerald/20 transition-colors">
                                     <Icon className="w-5 h-5 text-brand-emerald" />
                                 </div>
-
-                                {/* Texto */}
                                 <h3 className="font-display font-bold text-xl text-white mb-3 tracking-tight">
                                     {card.title}
                                 </h3>
                                 <p className="text-sm text-zinc-500 leading-relaxed mb-4">
                                     {card.description}
                                 </p>
-
-                                {/* Meta tags */}
                                 {card.meta && (
                                     <div className="flex gap-2">
                                         {card.meta.map((tag, j) => (
@@ -60,7 +66,7 @@ export default function ModuleCards() {
                                         ))}
                                     </div>
                                 )}
-                            </div>
+                            </motion.div>
                         );
                     })}
                 </div>
